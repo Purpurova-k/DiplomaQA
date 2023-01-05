@@ -1,8 +1,8 @@
 package ru.iteco.fhmandroid.ui.test;
 
-import static ru.iteco.fhmandroid.ui.data.DataHelper.snackEmpty;
+import static ru.iteco.fhmandroid.ui.data.DataHelper.snackEmptyLoginOrPassword;
+import static ru.iteco.fhmandroid.ui.data.DataHelper.snackWrongLoginOrPassword;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.validLoginAndPassword;
-import static ru.iteco.fhmandroid.ui.data.DataHelper.snackWrong;
 
 import android.os.SystemClock;
 
@@ -21,7 +21,8 @@ import ru.iteco.fhmandroid.ui.steps.AuthorizationScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
 
 @RunWith(AndroidJUnit4.class)
-public class AuthorizationTest {
+public class AuthorizationScreenTest {
+
     @Rule
     public ActivityTestRule<AppActivity> ActivityTestRule = new ActivityTestRule<>(AppActivity.class);
 
@@ -46,50 +47,50 @@ public class AuthorizationTest {
 
     // Кейс 1.1.1 "Авторизация пользователя с валидными данными"
     @Test
-    public void authWithValidData() {
+    public void shouldLoginWithValidData() {
         authorizationScreenSteps.validLoginAndPasswordAuthorization(validLoginAndPassword());
         mainScreenSteps.checkLogoImageIsDisplayed();
     }
 
     // Кейс 1.1.2 "Авторизация незарегистрированного пользователя"
     @Test
-    public void authWithInvalidLogin() {
+    public void shouldNotLoginWithInvalidLogin() {
         authorizationScreenSteps.invalidLoginAuthorization();
-        authorizationScreenSteps.checkSnackIsDisplayed(snackWrong);
+        authorizationScreenSteps.checkSnackIsDisplayed(ActivityTestRule.getActivity(), snackWrongLoginOrPassword);
     }
 
     // Кейс 1.1.3 "Авторизация пользователя с невалидным паролем"
     @Test
-    public void authWithInvalidPassword() {
+    public void shouldNotLoginWithInvalidPassword() {
         authorizationScreenSteps.invalidPasswordAuthorization();
-        authorizationScreenSteps.checkSnackIsDisplayed(snackWrong);
+        authorizationScreenSteps.checkSnackIsDisplayed(ActivityTestRule.getActivity(), snackWrongLoginOrPassword);
     }
 
     // Кейс 1.2.1 "Авторизация пользователя при введеном пробеле в поле логин"
     @Test
-    public void authWithLoginWithWhitespace() {
+    public void shouldLoginWithLoginWithWhitespace() {
         authorizationScreenSteps.loginWithWhitespaceAuthorization();
         mainScreenSteps.checkLogoImageIsDisplayed();
     }
 
     // Кейс 1.2.2 "Авторизация пользователя при введеном пробеле в поле пароль"
     @Test
-    public void authWithPasswordWithWhitespace() {
+    public void shouldNotLoginWithPasswordWithWhitespace() {
         authorizationScreenSteps.passwordWithWhitespaceAuthorization();
-        authorizationScreenSteps.checkSnackIsDisplayed(snackWrong);
+        authorizationScreenSteps.checkSnackIsDisplayed(ActivityTestRule.getActivity(), snackWrongLoginOrPassword);
     }
 
     // Кейс 1.2.3 "Авторизация пользователя с пустым полем логин"
     @Test
-    public void authWithEmptyLoginField() {
+    public void shouldNotLoginWithEmptyLoginField() {
         authorizationScreenSteps.emptyLoginFieldAuthorization();
-        authorizationScreenSteps.checkSnackIsDisplayed(snackEmpty);
+        authorizationScreenSteps.checkSnackIsDisplayed(ActivityTestRule.getActivity(), snackEmptyLoginOrPassword);
     }
 
     // Кейс 1.2.4 "Авторизация пользователя с пустым полем пароль"
     @Test
-    public void authWithEmptyPasswordField() {
+    public void shouldNotLoginWithEmptyPasswordField() {
         authorizationScreenSteps.emptyPasswordFieldAuthorization();
-        authorizationScreenSteps.checkSnackIsDisplayed(snackEmpty);
+        authorizationScreenSteps.checkSnackIsDisplayed(ActivityTestRule.getActivity(), snackEmptyLoginOrPassword);
     }
 }
