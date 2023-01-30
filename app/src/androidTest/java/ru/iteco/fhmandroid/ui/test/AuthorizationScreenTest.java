@@ -33,7 +33,7 @@ public class AuthorizationScreenTest {
     public void checkLogout() {
         SystemClock.sleep(7000);
         try {
-            authorizationScreenSteps.checkAuthorizationHeaderIsDisplayed();
+            authorizationScreenSteps.checkAuthorizationScreenIsDisplayed();
             authorizationScreenSteps.checkLoginAndPasswordFieldsAreDisplayed();
         } catch (NoMatchingViewException e) {
             mainScreenSteps.logout();
@@ -56,14 +56,14 @@ public class AuthorizationScreenTest {
     @Test
     public void shouldNotLoginWithInvalidLogin() {
         authorizationScreenSteps.invalidLoginAuthorization();
-        authorizationScreenSteps.checkSnackIsDisplayed(ActivityTestRule.getActivity(), snackWrongLoginOrPassword);
+        authorizationScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackWrongLoginOrPassword);
     }
 
     // Кейс 1.1.3 "Авторизация пользователя с невалидным паролем"
     @Test
     public void shouldNotLoginWithInvalidPassword() {
         authorizationScreenSteps.invalidPasswordAuthorization();
-        authorizationScreenSteps.checkSnackIsDisplayed(ActivityTestRule.getActivity(), snackWrongLoginOrPassword);
+        authorizationScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackWrongLoginOrPassword);
     }
 
     // Кейс 1.2.1 "Авторизация пользователя при введеном пробеле в поле логин"
@@ -77,20 +77,20 @@ public class AuthorizationScreenTest {
     @Test
     public void shouldNotLoginWithPasswordWithWhitespace() {
         authorizationScreenSteps.passwordWithWhitespaceAuthorization();
-        authorizationScreenSteps.checkSnackIsDisplayed(ActivityTestRule.getActivity(), snackWrongLoginOrPassword);
+        authorizationScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackWrongLoginOrPassword);
     }
 
     // Кейс 1.2.3 "Авторизация пользователя с пустым полем логин"
     @Test
     public void shouldNotLoginWithEmptyLoginField() {
         authorizationScreenSteps.emptyLoginFieldAuthorization();
-        authorizationScreenSteps.checkSnackIsDisplayed(ActivityTestRule.getActivity(), snackEmptyLoginOrPassword);
+        authorizationScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackEmptyLoginOrPassword);
     }
 
     // Кейс 1.2.4 "Авторизация пользователя с пустым полем пароль"
     @Test
     public void shouldNotLoginWithEmptyPasswordField() {
         authorizationScreenSteps.emptyPasswordFieldAuthorization();
-        authorizationScreenSteps.checkSnackIsDisplayed(ActivityTestRule.getActivity(), snackEmptyLoginOrPassword);
+        authorizationScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackEmptyLoginOrPassword);
     }
 }

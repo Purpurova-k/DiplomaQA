@@ -6,10 +6,7 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
-import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
@@ -23,21 +20,17 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.passwordWithWhitespace;
 import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.matcher.ViewMatchers;
 
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.elements.AuthorizationScreenElements;
-import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 
 public class AuthorizationScreenSteps {
 
     AuthorizationScreenElements authorizationScreenElements = new AuthorizationScreenElements();
 
-    // Проверка отображения заголовка экрана Авторизации
-    public void checkAuthorizationHeaderIsDisplayed() {
+    // Проверка отображения экрана Авторизации
+    public void checkAuthorizationScreenIsDisplayed() {
         authorizationScreenElements.getAuthorizationHeader().check(matches(isDisplayed()));
     }
 
@@ -105,18 +98,17 @@ public class AuthorizationScreenSteps {
     }
 
     // Проверка появления снэка с ошибкой
-
-    public void checkSnackIsDisplayed(@NonNull AppActivity activity, String text) {
+    public void checkSnackIsVisible(@NonNull AppActivity activity, String text) {
         onView(withText(text)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
         SystemClock.sleep(3000);
     }
 
-//    public void checkSnackIsDisplayed(String text) {
+//    public void checkSnackIsVisible(String text) {
 //        onView(withText(text)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 //        SystemClock.sleep(3000);
 //    }
 
-//        public void checkSnackWrongLoginOrPasswordIsDisplayed() {
+//        public void checkSnackWrongLoginOrPasswordIsVisible() {
 //            authorizationScreenElements.getSnackWrongLoginOrPassword().check(matches(withText("Неверный логин или пароль")));
 //            SystemClock.sleep(3000);
 //    }

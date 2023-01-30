@@ -55,6 +55,7 @@ public class MainScreenElements {
                             4)));
 
     private final ViewInteraction quotesButton = onView(withId(R.id.our_mission_image_button));
+
     public ViewInteraction getLogoImage() {
         return logoImage;
     }
