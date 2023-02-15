@@ -10,8 +10,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.withIndex;
 
-import android.os.SystemClock;
-
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.elements.NewsScreenElements;
 import ru.iteco.fmhandroid.R;
@@ -23,37 +21,31 @@ public class NewsScreenSteps {
     // Проверка отображения экрана Новости
     public void checkNewsScreenIsDisplayed() {
         newsScreenElements.getNewsSectionTitle().check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Сортировка
     public void clickButtonSortNews() {
         newsScreenElements.getSortNewsButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Фильтр
     public void goToFilterNewsScreen() {
         newsScreenElements.getFilterNewsButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Редактировать новости
     public void goToControlPanelScreen() {
         newsScreenElements.getEditNewsButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку свернуть/развернуть рядом с новостью
     public void expandNewsDescription(int position) {
         newsScreenElements.getExpandNewsDescriptionButton().perform(actionOnItemAtPosition(position, click()));
-        SystemClock.sleep(3000);
     }
 
     // Проверка, что видно описание новости
     public void checkTextOfNewsDescriptionIsVisible(int position) {
         onView(withIndex(withId(R.id.news_item_description_text_view), position)).check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Проверка сортировки новостей от более старых к более новым и наоборот
@@ -94,6 +86,4 @@ public class NewsScreenSteps {
     public String dateOfLastNewsText() {
         return DataHelper.Text.getText(onView(withIndex(withId(R.id.news_item_date_text_view), 7)));
     }
-
-
 }

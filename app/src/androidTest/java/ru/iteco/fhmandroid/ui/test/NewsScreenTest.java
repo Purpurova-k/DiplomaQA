@@ -17,25 +17,15 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.popupWrongPeriod;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.popupWrongTimeForPublicationNews;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.snackFillEmptyFields;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.snackChooseCategoryFromDropdown;
-import static ru.iteco.fhmandroid.ui.data.DataHelper.validLoginAndPassword;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.validationInvalidTime;
 
-import android.os.SystemClock;
-
-import androidx.test.espresso.NoMatchingViewException;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
+import ru.iteco.fhmandroid.ui.custom.BaseAndroidTest;
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.steps.AdvancedFilterNewsScreenSteps;
-import ru.iteco.fhmandroid.ui.steps.AuthorizationScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.CreateNewsScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.ControlPanelScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.EditNewsScreenSteps;
@@ -43,16 +33,10 @@ import ru.iteco.fhmandroid.ui.steps.FilterNewsScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.NewsScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.WatchScreenSteps;
-import ru.iteco.fmhandroid.ui.AppActivity;
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
-public class NewsScreenTest {
+public class NewsScreenTest extends BaseAndroidTest {
 
-    @Rule
-    public androidx.test.rule.ActivityTestRule<AppActivity> ActivityTestRule = new ActivityTestRule<>(AppActivity.class);
-
-    AuthorizationScreenSteps authorizationScreenSteps = new AuthorizationScreenSteps();
     MainScreenSteps mainScreenSteps = new MainScreenSteps();
     NewsScreenSteps newsScreenSteps = new NewsScreenSteps();
     FilterNewsScreenSteps filterNewsScreenSteps = new FilterNewsScreenSteps();
@@ -62,20 +46,6 @@ public class NewsScreenTest {
     EditNewsScreenSteps editNewsScreenSteps = new EditNewsScreenSteps();
     WatchScreenSteps watchScreenSteps = new WatchScreenSteps();
 
-    @Before
-    public void checkLogin() {
-        SystemClock.sleep(8000);
-        try {
-            mainScreenSteps.checkMainScreenIsDisplayed();
-        } catch (NoMatchingViewException e) {
-            authorizationScreenSteps.validLoginAndPasswordAuthorization(validLoginAndPassword());
-        }
-    }
-
-    @After
-    public void setUp() {
-        SystemClock.sleep(3000);
-    }
 
     // Кейс 5.1.1 "Сортировка новостей на экране Новости"
     @Test

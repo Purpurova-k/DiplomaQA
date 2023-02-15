@@ -46,7 +46,6 @@ public class MainScreenElements {
                     3)));
 
     private final ViewInteraction createClaimButton = onView(withId(R.id.add_new_claim_material_button));
-    private final ViewInteraction titleClaims = onView(withText("Заявки"));
 
     private final ViewInteraction listOfClaims = onView(
             allOf(withId(R.id.claim_list_recycler_view),
@@ -97,9 +96,6 @@ public class MainScreenElements {
     }
     public ViewInteraction getCreateClaimButton() {
         return createClaimButton;
-    }
-    public ViewInteraction getTitleClaims() {
-        return titleClaims;
     }
     public ViewInteraction getListOfClaims() {
         return listOfClaims;

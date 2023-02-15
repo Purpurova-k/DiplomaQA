@@ -7,6 +7,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
@@ -29,6 +30,8 @@ import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.contrib.PickerActions;
+import androidx.test.espresso.util.HumanReadables;
+import androidx.test.espresso.util.TreeIterables;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
@@ -39,6 +42,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Random;
+import java.util.concurrent.TimeoutException;
 
 import ru.iteco.fhmandroid.ui.elements.ClaimsScreenElements;
 import ru.iteco.fhmandroid.ui.steps.ControlPanelScreenSteps;
@@ -110,7 +114,7 @@ public class DataHelper {
         return new AuthInfo(login, password);
     }
 
-    public static String snackWrongLoginOrPassword = "Wrong login or password";
+    public static String snackWrongLoginOrPassword = "Неверный логин или пароль";
 
     public static String snackEmptyLoginOrPassword = "Логин и пароль не могут быть пустыми";
 
@@ -647,5 +651,46 @@ public class DataHelper {
             LocalDate date = LocalDate.now().plusYears(-1);
             return date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         }
+    }
+
+    public static ViewAction waitUntilShown(final int viewId, final long millis) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isRoot();
+            }
+
+            @Override
+            public String getDescription() {
+                return "wait for a specific view with id <" + viewId + "> is shown during " + millis + " millis.";
+            }
+
+            @Override
+            public void perform(final UiController uiController, final View view) {
+                uiController.loopMainThreadUntilIdle();
+                final long startTime = System.currentTimeMillis();
+                final long endTime = startTime + millis;
+                final Matcher<View> viewMatcher = withId(viewId);
+
+                do {
+                    for (View child : TreeIterables.breadthFirstViewTraversal(view)) {
+                        // found view with required ID
+                        if (viewMatcher.matches(child) && child.isShown()) {
+                            return;
+                        }
+                    }
+
+                    uiController.loopMainThreadForAtLeast(50);
+                }
+                while (System.currentTimeMillis() < endTime);
+
+                // timeout happens
+                throw new PerformException.Builder()
+                        .withActionDescription(this.getDescription())
+                        .withViewDescription(HumanReadables.describe(view))
+                        .withCause(new TimeoutException())
+                        .build();
+            }
+        };
     }
 }

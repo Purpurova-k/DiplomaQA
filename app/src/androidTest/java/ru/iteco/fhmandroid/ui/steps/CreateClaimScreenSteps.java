@@ -24,8 +24,6 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.Text.textWithCyrillicSymbol
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Text.textWithLatinSymbols;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Text.textWithSpecialSymbolsAndNumbers;
 
-import android.os.SystemClock;
-
 import androidx.annotation.NonNull;
 
 import ru.iteco.fhmandroid.ui.data.DataHelper;
@@ -44,47 +42,38 @@ public class CreateClaimScreenSteps {
     public void checkCreateClaimScreenIsDisplayed() {
         createClaimScreenElements.getCreateTitle().check(matches(isDisplayed()));
         createClaimScreenElements.getClaimsTitle().check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Заполнение полей валидными данными
     public void fillTheFieldsWithValidData() {
         createClaimScreenElements.getTheme().perform(replaceText(textWithCyrillicSymbols(20)));
-        SystemClock.sleep(3000);
         createClaimScreenElements.getDate().perform(click());
         calendarScreenSteps.clickOnOkButton();
-        SystemClock.sleep(2000);
         createClaimScreenElements.getTime().perform(click());
         watchScreenSteps.clickOnOpenKeyboardButton();
         watchScreenSteps.settingHour(DataHelper.DateTime.currentTimePlusOneHour());
         watchScreenSteps.clickOnOkButton();
-        SystemClock.sleep(2000);
         createClaimScreenElements.getDescription().perform(replaceText(textWithCyrillicSymbols(25)));
-        SystemClock.sleep(3000);
     }
 
     // Заполнение поля Тема новым значением, состоящим из кириллических символов
     public void fillTheFieldThemeCyrillicSymbols(int numberOfSymbols) {
         createClaimScreenElements.getTheme().perform(replaceText(textWithCyrillicSymbols(numberOfSymbols)));
-        SystemClock.sleep(3000);
     }
 
     // Заполнение поля Тема новым значением, состоящим из латинских символов
     public void fillTheFieldThemeLatinSymbols(int numberOfSymbols) {
         createClaimScreenElements.getTheme().perform(replaceText(textWithLatinSymbols(numberOfSymbols)));
-        SystemClock.sleep(3000);
     }
 
     // Заполнение поля Тема новым значением, состоящим из цифр, знаков препинания и специальных символов
     public void fillTheFieldThemeSpecialSymbolsAndNumbers() {
         createClaimScreenElements.getTheme().perform(replaceText(textWithSpecialSymbolsAndNumbers(20)));
-        SystemClock.sleep(3000);
     }
 
     // Заполнение поля Тема новым значением, состоящим из пробела
     public void fillTheFieldThemeWhiteSpace() {
         createClaimScreenElements.getTheme().perform(replaceText(" "));
-        SystemClock.sleep(3000);
     }
 
     // Выбор исполнителя из списка
@@ -92,13 +81,11 @@ public class CreateClaimScreenSteps {
         createClaimScreenElements.getExecutor().perform(click());
         onView(withText(executor)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).perform(click());
         createClaimScreenElements.getExecutor().perform(closeSoftKeyboard());
-        SystemClock.sleep(3000);
     }
 
     // Заполнение поля Исполнитель значением не из выпадающего списка
     public void fillTheFieldExecutorNotFromDropdown() {
         createClaimScreenElements.getExecutor().perform(replaceText("Ванов Иван Иванович"));
-        SystemClock.sleep(3000);
     }
 
     // Заполнение поля Время значением текущего времени
@@ -108,7 +95,6 @@ public class CreateClaimScreenSteps {
         watchScreenSteps.settingHour(currentHour());
         watchScreenSteps.settingMinute(currentMinute());
         watchScreenSteps.clickOnOkButton();
-        SystemClock.sleep(3000);
     }
 
     // Заполнение поля Время значением прошедшего времени
@@ -118,7 +104,6 @@ public class CreateClaimScreenSteps {
         watchScreenSteps.settingHour(currentTimeMinusOneHour());
         watchScreenSteps.settingMinute(currentMinute());
         watchScreenSteps.clickOnOkButton();
-        SystemClock.sleep(2000);
     }
 
     // Заполнение поля Время значением несуществующего времени
@@ -128,13 +113,11 @@ public class CreateClaimScreenSteps {
         watchScreenSteps.settingHour(randomInvalidHour());
         watchScreenSteps.settingMinute(randomInvalidMinute());
         watchScreenSteps.clickOnOkButton();
-        SystemClock.sleep(2000);
     }
 
     // Заполнение поля Дата значением завтрашний день
     public void fillTheFieldDateTomorrow() {
         createClaimScreenElements.getDate().perform(replaceText(dateTomorrow()));
-        SystemClock.sleep(2000);
     }
 
     // Заполнение поля Дата значием даты через месяц
@@ -143,9 +126,7 @@ public class CreateClaimScreenSteps {
         calendarScreenSteps.clickOnNextMonthButton();
         calendarScreenSteps.setDateInMonth();
         calendarScreenSteps.clickOnOkButton();
-        SystemClock.sleep(2000);
         createClaimScreenElements.getDate().perform(replaceText(dateInOneMonth()));
-        SystemClock.sleep(2000);
     }
 
     // Заполнение поля Дата значием даты через год
@@ -154,43 +135,36 @@ public class CreateClaimScreenSteps {
         calendarScreenSteps.clickOnChooseYearButton();
         calendarScreenSteps.chooseNextYear();
         calendarScreenSteps.clickOnOkButton();
-        SystemClock.sleep(2000);
     }
 
     // Заполнение поля Описание новым значением, состоящим из латинских символов
     public void fillTheFieldDescriptionLatinSymbols(int numberOfSymbols) {
         createClaimScreenElements.getDescription().perform(replaceText(textWithLatinSymbols(numberOfSymbols)));
-        SystemClock.sleep(3000);
     }
 
     // Заполнение поля Описание новым значением, состоящим из цифр, знаков препинания и специальных символов
     public void fillTheFieldDescriptionSpecialSymbolsAndNumbers(int numberOfSymbols) {
         createClaimScreenElements.getDescription().perform(replaceText(textWithSpecialSymbolsAndNumbers(numberOfSymbols)));
-        SystemClock.sleep(3000);
     }
 
     // Заполнение поля Описание новым значением, состоящим из пробела
     public void fillTheFieldDescriptionWhiteSpace() {
         createClaimScreenElements.getDescription().perform(replaceText(" "));
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопу сохранить
     public void clickOnSaveButton() {
         createClaimScreenElements.getSaveButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Отмена
     public void clickOnCancelButton() {
         createClaimScreenElements.getCancelButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку ОК для подтверждения отмены создания заявки
     public void clickOnOkExitButton() {
         createClaimScreenElements.getOkExitButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Сравнение количества вводимых символов и символов в поле
@@ -198,14 +172,14 @@ public class CreateClaimScreenSteps {
         String text = DataHelper.Text.getText(onView(withId(R.id.title_edit_text)));
         int textLength = text.length();
         assertEquals(50, textLength);
-        SystemClock.sleep(3000);
     }
 
     // Проверка отображения поп-апа с предупреждающим сообщением
     public void checkPopupIsVisible(@NonNull AppActivity activity, String text) {
         onView(withText(text)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
+
+
 
     // Получение текстовых данных из формы создаваемой заявки
 

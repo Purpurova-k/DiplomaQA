@@ -14,8 +14,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Text.textWithCyrillicSymbols;
 
-import android.os.SystemClock;
-
 import androidx.annotation.NonNull;
 
 import ru.iteco.fhmandroid.ui.elements.EditClaimScreenElements;
@@ -31,21 +29,16 @@ public class EditClaimScreenSteps {
     public void checkEditClaimScreenIsDisplayed() {
         editClaimScreenElements.getEditTitle().check(matches(isDisplayed()));
         editClaimScreenElements.getClaimsTitle().check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Заполнение полей новыми валидными данными
     public void fillTheFieldsWithNewValidData() {
         editClaimScreenElements.getTheme().perform(replaceText(textWithCyrillicSymbols(20)));
-        SystemClock.sleep(2000);
         editClaimScreenElements.getDate().perform(click());
         calendarScreenSteps.clickOnOkButton();
-        SystemClock.sleep(2000);
         editClaimScreenElements.getTime().perform(click());
         watchScreenSteps.clickOnOkButton();
-        SystemClock.sleep(2000);
         editClaimScreenElements.getDescription().perform(replaceText(textWithCyrillicSymbols(25)));
-        SystemClock.sleep(3000);
     }
 
     // Выбор исполнителя из списка
@@ -54,25 +47,21 @@ public class EditClaimScreenSteps {
         onView(withText(executor))
                 .inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).perform(click());
         editClaimScreenElements.getExecutor().perform(closeSoftKeyboard());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Сохранить
     public void clickOnSaveButton() {
         editClaimScreenElements.getSaveButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Отмена
     public void clickOnCancelButton() {
         editClaimScreenElements.getCancelButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку ОК для подтверждения отмены редактирования
     public void clickOnOkExitButton() {
         editClaimScreenElements.getOkExitButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Сравнение данных до редактирование и после
@@ -85,7 +74,6 @@ public class EditClaimScreenSteps {
         assertNotEquals(dateClaimBefore, dateClaimAfter);
         assertNotEquals(timeClaimBefore, timeClaimAfter);
         assertNotEquals(descriptionClaimBefore, descriptionClaimAfter);
-        SystemClock.sleep(3000);
     }
 
     // Сравнение данных до и после при отмененном редактировании
@@ -98,6 +86,5 @@ public class EditClaimScreenSteps {
         assertEquals(dateClaimBefore, dateClaimAfter);
         assertEquals(timeClaimBefore, timeClaimAfter);
         assertEquals(descriptionClaimBefore, descriptionClaimAfter);
-        SystemClock.sleep(3000);
     }
 }

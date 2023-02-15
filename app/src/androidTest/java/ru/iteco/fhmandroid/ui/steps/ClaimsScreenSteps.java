@@ -24,8 +24,6 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.Search.tryToFindTheUncreate
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Search.tryToFindTheUncreatedClaim;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.withIndex;
 
-import android.os.SystemClock;
-
 import androidx.annotation.NonNull;
 import androidx.test.espresso.ViewInteraction;
 
@@ -49,7 +47,6 @@ public class ClaimsScreenSteps {
         claimsScreenElements.getDescriptionLabel().check(matches(isDisplayed()));
         claimsScreenElements.getAuthorLabel().check(matches(isDisplayed()));
         claimsScreenElements.getCreateDateLabel().check(matches(isDisplayed()));
-        SystemClock.sleep(2000);
     }
 
     // Проверка отображения экрана Заявки
@@ -57,93 +54,78 @@ public class ClaimsScreenSteps {
         claimsScreenElements.getClaimsSectionTitle().check(matches(isDisplayed()));
         claimsScreenElements.getFilterButton().check(matches(isDisplayed()));
         claimsScreenElements.getCreateButton().check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Плюс (создать заявку)
     public void clickButtonCreateClaim() {
         claimsScreenElements.getCreateButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Фильтр
     public void goToFilterClaimsScreen() {
         claimsScreenElements.getFilterButton().perform(click());
         filterClaimsScreenElements.getFilterTitle().check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Проверка статуса В работе
     public void checkStatusInProgress() {
         claimsScreenElements.getStatusInProgress().check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Проверка статуса Открыта
     public void checkStatusOpened() {
         claimsScreenElements.getStatusOpened().check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Проверка статуса Выполнена
     public void checkStatusExecuted() {
         claimsScreenElements.getStatusExecuted().check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Проверка статуса Отменена
     public void checkStatusCanceled() {
         claimsScreenElements.getStatusCancelled().check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на первую заявку в списке
     public void clickOnClaim() {
         claimsScreenElements.getListOfClaims().perform(actionOnItemAtPosition(0, click()));
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку добавления комментария
     public void clickButtonAddCommentToClaim() {
         claimsScreenElements.getAddCommentButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Редактировать рядом с комментарием
     public void clickButtonEditComment(int position) {
         claimsScreenElements.setEditCommentButton(position);
         claimsScreenElements.getEditCommentButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку редактирования статуса заявки
     public void clickButtonEditStatusOfClaim() {
         claimsScreenElements.getEditStatusOfClaimButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на Сбросить
     public void clickTrowOff() {
         claimsScreenElements.getThrowOff().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на Исполнить
     public void clickExecute() {
         claimsScreenElements.getExecute().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на В работу
     public void clickTakeToWork() {
         claimsScreenElements.getTakeToWork().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на Отменить
     public void clickCancel() {
         claimsScreenElements.getCancel().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Редактировать заявку
@@ -154,23 +136,18 @@ public class ClaimsScreenSteps {
     // Нажатие на стрелку Назад
     public void clickButtonReturn() {
         claimsScreenElements.getReturnButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     //  Заполнение поля комментарий с последующим нажатием на ОК
     public void fillTheFieldCommentAndSave(String comment) {
         claimsScreenElements.getCommentField().perform(replaceText(comment));
-        SystemClock.sleep(3000);
         claimsScreenElements.getOkButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Заполнение поля комментарий с последующим нажатием на Отмена
     public void fillTheFieldCommentAndCancel(String comment) {
         claimsScreenElements.getCommentField().perform(replaceText(comment));
-        SystemClock.sleep(3000);
         claimsScreenElements.getCancelButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку ОК без заполнения значением поля комментарий
@@ -182,13 +159,11 @@ public class ClaimsScreenSteps {
     public void checkAddedCommentIsVisible(String comment) {
         onView(allOf(withId(R.id.comment_description_text_view), withText(comment.trim()),
                 withParent(withParent(withId(R.id.claim_comments_list_recycler_view))))).check(matches(withText(comment.trim()))).check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Проверка, что комментарий не создался
     public void checkNotAddedCommentNotVisible(String comment) {
         assertNotEquals(comment, tryToFindTheUncreatedComment(comment.trim()));
-        SystemClock.sleep(3000);
     }
 
     // Проверка комментария до редактирования и после
@@ -203,19 +178,16 @@ public class ClaimsScreenSteps {
                 withParent(allOf(withId(R.id.claim_comments_list_recycler_view), withChild(
                         withChild(allOf(withText(comment)))))))));
         claimsScreenElements.getLastComment().check(matches(not(withText(commentField.toString()))));
-        SystemClock.sleep(3000);
     }
 
     // Поиск созданной претензии
     public void findCreatedClaim(String text) {
         findTheCreatedClaim(text);
-        SystemClock.sleep(3000);
     }
 
     // Проверка отсутствия несозданной претензии
     public void checkTheAbsenceOfUncreatedClaim(String text) {
         assertNotEquals(text, tryToFindTheUncreatedClaim(text));
-        SystemClock.sleep(3000);
     }
 
     // Сравнение данных у созданной и найденной претензий
@@ -244,26 +216,22 @@ public class ClaimsScreenSteps {
         claimsScreenElements.getCreateDateLabel().perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         claimsScreenElements.getCreateDateLabel().perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         claimsScreenElements.getCreateDateLabel().perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
-        SystemClock.sleep(3000);
     }
 
     // Свайп вниз в разделе комментарии
     public void swipeToTopInComments() {
         claimsScreenElements.getAddCommentButton().perform(swipeDown()).perform(swipeDown()).perform(swipeDown());
         claimsScreenElements.getCreateDateLabel().perform(swipeDown()).perform(swipeDown()).perform(swipeDown());
-        SystemClock.sleep(3000);
     }
 
     // Проверка отображения снэка с ошибкой
     public void checkSnackIsVisible(@NonNull AppActivity activity, String text) {
         onView(withText(text)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Проверка отображения экрана с надписью "Здесь пока ничего нет"
     public void checkEmptyScreenIsDisplayed() {
         onView(withText(startsWith("Здесь пока ничего нет"))).check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
 

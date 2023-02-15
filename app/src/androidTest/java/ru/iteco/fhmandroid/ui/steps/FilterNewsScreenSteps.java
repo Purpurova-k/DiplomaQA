@@ -29,7 +29,6 @@ public class FilterNewsScreenSteps {
     // Проверка отображения экрана Фильтрация новостей
     public void checkFilterNewsScreenIsDisplayed() {
         filterNewsScreenElements.getFilterTitle().check(matches(isDisplayed()));
-        SystemClock.sleep(2000);
     }
 
     // Выбор категории из выпадающего списка
@@ -37,27 +36,23 @@ public class FilterNewsScreenSteps {
         filterNewsScreenElements.getCategory().perform(click());
         filterNewsScreenElements.getCategory().perform(closeSoftKeyboard());
         onView(withText(category)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).perform(click());
-        SystemClock.sleep(2000);
     }
 
     // Заполнение первой даты значением сегодняшнего дня
     public void fillTheStartDateToday() {
         filterNewsScreenElements.getDateStart().perform(click());
         calendarScreenSteps.clickOnOkButton();
-        SystemClock.sleep(2000);
     }
 
     // Заполнение второй даты значением сегодняшнего дня
     public void fillTheEndDateToday() {
         filterNewsScreenElements.getDateEnd().perform(click());
         calendarScreenSteps.clickOnOkButton();
-        SystemClock.sleep(2000);
     }
 
     // Нажатие на кнопку Фильтровать
     public void clickOnFilterButton() {
         filterNewsScreenElements.getFilterButton().perform(click());
-        SystemClock.sleep(2000);
     }
 
 
@@ -65,10 +60,6 @@ public class FilterNewsScreenSteps {
 
     public String categoryText() {
         return DataHelper.Text.getText(onView(withId(R.id.news_item_category_text_auto_complete_text_view)));
-    }
-
-    public String dateStartText() {
-        return DataHelper.Text.getText(onView(withId(R.id.news_item_publish_date_start_text_input_edit_text)));
     }
 
     public String dateEndText() {

@@ -19,8 +19,6 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.currentTimePlusOne
 import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.dateTomorrow;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.dateYesterday;
 
-import android.os.SystemClock;
-
 import androidx.annotation.NonNull;
 
 import ru.iteco.fhmandroid.ui.data.DataHelper;
@@ -37,7 +35,6 @@ public class EditNewsScreenSteps {
     public void checkEditNewsScreenIsDisplayed() {
         editNewsScreenElements.getEditTitle().check(matches(isDisplayed()));
         editNewsScreenElements.getNewsTitle().check(matches(isDisplayed()));
-        SystemClock.sleep(2000);
     }
 
     // Выбор категории из списка
@@ -45,31 +42,26 @@ public class EditNewsScreenSteps {
         editNewsScreenElements.getCategory().perform(click());
         editNewsScreenElements.getCategory().perform(closeSoftKeyboard());
         onView(withText(category)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Заполнение поля Категория новым значением
     public void fillTheFieldCategory(String category) {
         editNewsScreenElements.getCategory().perform(replaceText(category));
-        SystemClock.sleep(2000);
     }
 
     // Заполнение поля Заголовок новым значением
     public void fillTheFieldHeader(String text) {
         editNewsScreenElements.getHeader().perform(replaceText(text));
-        SystemClock.sleep(2000);
     }
 
     // Заполнение поля Дата значением завтрашний день
     public void fillTheFieldDateTomorrow() {
         editNewsScreenElements.getPublicationDate().perform(replaceText(dateTomorrow()));
-        SystemClock.sleep(2000);
     }
 
     // Заполнение поля Дата значением вчерашний день
     public void fillTheFieldDateYesterday() {
         editNewsScreenElements.getPublicationDate().perform(replaceText(dateYesterday()));
-        SystemClock.sleep(2000);
     }
 
     // Заполнение поля Время значением времени на час вперед от текущего
@@ -79,37 +71,31 @@ public class EditNewsScreenSteps {
         watchScreenSteps.settingHour(currentTimePlusOneHour());
         watchScreenSteps.settingMinute(currentMinute());
         watchScreenSteps.clickOnOkButton();
-        SystemClock.sleep(2000);
     }
 
     // Заполнение поля Описание новым значением
     public void fillTheFieldDescription(String text) {
         editNewsScreenElements.getDescription().perform(replaceText(text));
-        SystemClock.sleep(2000);
     }
 
     // Нажатие на тумблер Активна
     public void clickOnSwitcher() {
         editNewsScreenElements.getSwitcher().perform(click());
-        SystemClock.sleep(2000);
     }
 
     // Нажатие на кнопку Сохранить
     public void clickOnSaveButton() {
         editNewsScreenElements.getSaveButton().perform(click());
-        SystemClock.sleep(2000);
     }
 
     // Нажатие на кнопку Отмена
     public void clickOnCancelButton() {
         editNewsScreenElements.getCancelButton().perform(click());
-        SystemClock.sleep(2000);
     }
 
     // Нажатие на кнопку ОК для подтверждения отмены редактирования
     public void clickOnOkExitButton() {
         editNewsScreenElements.getOkExitButton().perform(click());
-        SystemClock.sleep(2000);
     }
 
     // Проверка, что тумблер стоит на Активна
@@ -127,7 +113,6 @@ public class EditNewsScreenSteps {
     // Проверка появления снэка с ошибкой
     public void checkSnackIsVisible(@NonNull AppActivity activity, String text) {
         onView(withText(text)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
 
@@ -151,9 +136,5 @@ public class EditNewsScreenSteps {
 
     public String descriptionText() {
         return DataHelper.Text.getText(onView(withId(R.id.news_item_description_text_input_edit_text)));
-    }
-
-    public String statusText() {
-        return DataHelper.Text.getText(onView(withId(R.id.switcher)));
     }
 }

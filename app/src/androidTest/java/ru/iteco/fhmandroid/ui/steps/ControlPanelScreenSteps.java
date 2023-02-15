@@ -17,8 +17,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.withIndex;
 
-import android.os.SystemClock;
-
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.elements.ControlPanelScreenElements;
 import ru.iteco.fmhandroid.R;
@@ -30,74 +28,62 @@ public class ControlPanelScreenSteps {
     // Проверка отображения экрана Панель управления новостей
     public void checkControlPanelScreenIsDisplayed() {
         controlPanelScreenElements.getControlPanel().check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Сортировка
     public void clickButtonSortNews() {
         controlPanelScreenElements.getSortNewsButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Фильтр
     public void goToAdvancedFilterNewsScreen() {
         controlPanelScreenElements.getFilterNewsButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Плюс (создать новость)
     public void clickButtonCreateNews() {
         controlPanelScreenElements.getCreateNewsButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на новость в списке
     public void clickOnNewsItem(int position) {
         controlPanelScreenElements.getListOfNews().perform(actionOnItemAtPosition(position, click()));
-        SystemClock.sleep(3000);
     }
 
     // Проверка, что видно описание новости
     public void checkTextOfNewsDescriptionIsVisible(int position) {
         onView(withIndex(withId(R.id.news_item_description_text_view), position)).check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку удалить рядом с новостью
     public void clickButtonDeleteNews(String nameOfNews) {
         onView(allOf(withId(R.id.delete_news_item_image_view), withParent(withParent(allOf(withId(R.id.news_item_material_card_view),
                 withChild(withChild(withText(nameOfNews)))))))).perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на ОК для подтверждения удаления новости
     public void clickButtonOkDeleteNews() {
         controlPanelScreenElements.getOkDeleteNewsButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на Отмена при подтверждении удаления новости
     public void clickButtonCancelDeleteNews() {
         controlPanelScreenElements.getCancelDeleteNewsButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку редактировать рядом с новостью
     public void clickButtonEditNews(int position) {
         onView(withIndex(withId(R.id.edit_news_item_image_view), position)).perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Обновить экран Панель управления
     public void swipeDownToRefresh() {
         onView(withId(R.id.news_control_panel_swipe_to_refresh)).perform(swipeDown());
-        SystemClock.sleep(3000);
     }
 
     // Проверка отображения экрана с надписью "Здесь пока ничего нет"
     public void checkEmptyScreenIsDisplayed() {
         onView(withText(startsWith("Здесь пока ничего нет"))).check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Сравнение данных первой новости в списке до и после удаления новости

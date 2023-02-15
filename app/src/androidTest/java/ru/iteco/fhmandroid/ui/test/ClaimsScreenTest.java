@@ -12,23 +12,13 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.popupTimeForClaimShouldBeAt
 import static ru.iteco.fhmandroid.ui.data.DataHelper.snackCannotEditClaim;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.snackCannotEditStatusOfClaim;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.snackEmptyField;
-import static ru.iteco.fhmandroid.ui.data.DataHelper.validLoginAndPassword;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.validationInvalidTime;
 
-import android.os.SystemClock;
-
-import androidx.test.espresso.NoMatchingViewException;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import ru.iteco.fhmandroid.ui.steps.AuthorizationScreenSteps;
+import ru.iteco.fhmandroid.ui.custom.BaseAndroidTest;
 import ru.iteco.fhmandroid.ui.steps.ClaimsScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.CommentClaimScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.CreateClaimScreenSteps;
@@ -36,16 +26,10 @@ import ru.iteco.fhmandroid.ui.steps.EditClaimScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.FilterClaimsScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.WatchScreenSteps;
-import ru.iteco.fmhandroid.ui.AppActivity;
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
-public class ClaimsScreenTest {
+public class ClaimsScreenTest extends BaseAndroidTest {
 
-    @Rule
-    public androidx.test.rule.ActivityTestRule<AppActivity> ActivityTestRule = new ActivityTestRule<>(AppActivity.class);
-
-    AuthorizationScreenSteps authorizationScreenSteps = new AuthorizationScreenSteps();
     MainScreenSteps mainScreenSteps = new MainScreenSteps();
     ClaimsScreenSteps claimsScreenSteps = new ClaimsScreenSteps();
     FilterClaimsScreenSteps filterClaimsScreenSteps = new FilterClaimsScreenSteps();
@@ -53,21 +37,6 @@ public class ClaimsScreenTest {
     EditClaimScreenSteps editClaimScreenSteps = new EditClaimScreenSteps();
     CreateClaimScreenSteps createClaimScreenSteps = new CreateClaimScreenSteps();
     WatchScreenSteps watchScreenSteps = new WatchScreenSteps();
-
-    @Before
-    public void checkLogout() {
-        SystemClock.sleep(8000);
-        try {
-            mainScreenSteps.checkMainScreenIsDisplayed();
-        } catch (NoMatchingViewException e) {
-            authorizationScreenSteps.validLoginAndPasswordAuthorization(validLoginAndPassword());
-        }
-    }
-
-    @After
-    public void setUp() {
-        SystemClock.sleep(3000);
-    }
 
     // Кейс 4.1.1 "Добавление комментария, состоящего из кириллических символов, к заявке в статусе "В работе" с последующим сохранением"
     @Test
@@ -223,6 +192,7 @@ public class ClaimsScreenTest {
         claimsScreenSteps.checkScreenOfDetailedDescriptionClaimIsDisplayed();
         claimsScreenSteps.checkStatusInProgress();
 
+        swipeToBottomClaimScreen();
         claimsScreenSteps.clickButtonEditStatusOfClaim();
         claimsScreenSteps.clickTrowOff();
 
@@ -247,6 +217,7 @@ public class ClaimsScreenTest {
         claimsScreenSteps.checkScreenOfDetailedDescriptionClaimIsDisplayed();
         claimsScreenSteps.checkStatusInProgress();
 
+        swipeToBottomClaimScreen();
         claimsScreenSteps.clickButtonEditStatusOfClaim();
         claimsScreenSteps.clickExecute();
 

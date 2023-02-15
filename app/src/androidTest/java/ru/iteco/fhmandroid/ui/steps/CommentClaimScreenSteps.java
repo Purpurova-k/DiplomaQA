@@ -10,8 +10,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 
-import android.os.SystemClock;
-
 import androidx.annotation.NonNull;
 
 import ru.iteco.fhmandroid.ui.elements.CommentClaimScreenElements;
@@ -26,21 +24,18 @@ public class CommentClaimScreenSteps {
         commentClaimScreenElements.getCommentField().check(matches(isDisplayed()));
         commentClaimScreenElements.getSaveButton().check(matches(isDisplayed()));
         commentClaimScreenElements.getCancelButton().check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
 
     // Заполнение значением поля комментарий с последующим сохранением
     public void fillTheFieldCommentAndSave(String comment) {
         commentClaimScreenElements.getCommentField().perform(replaceText(comment));
         commentClaimScreenElements.getSaveButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Заполнение значением поля комментарий с последующей отменой
     public void fillTheFieldCommentAndCancel(String comment) {
         commentClaimScreenElements.getCommentField().perform(replaceText(comment));
         commentClaimScreenElements.getCancelButton().perform(click());
-        SystemClock.sleep(3000);
     }
 
     // Нажатие на кнопку Сохранить без заполнения значением поля комментарий
@@ -51,9 +46,5 @@ public class CommentClaimScreenSteps {
     // Проверка отображения снэка с ошибкой "Поле не может быть пустым"
     public void checkSnackIsVisible(@NonNull AppActivity activity, String text) {
         onView(withText(text)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
-        SystemClock.sleep(3000);
     }
-
-
-
 }
