@@ -24,6 +24,7 @@ import android.view.ViewParent;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import androidx.test.espresso.NoMatchingRootException;
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.PerformException;
 import androidx.test.espresso.UiController;
@@ -120,7 +121,7 @@ public class DataHelper {
 
     public static String snackEmptyField = "Поле не может быть пустым.";
 
-    public static String snackCannotEditClaim = "Редактировать Заявку можно только в статусе Открыта";
+    public static String snackCannotEditClaim = "Редактировать Заявку можно только в статусе Открыта.";
 
     public static String snackCannotEditStatusOfClaim = "Изменить статус заявки невозможно";
 
@@ -163,6 +164,7 @@ public class DataHelper {
         ControlPanelScreenSteps controlPanelScreenSteps = new ControlPanelScreenSteps();
         CreateNewsScreenSteps createNewsScreenSteps = new CreateNewsScreenSteps();
 
+        onView(isRoot()).perform(waitUntilShown(R.id.add_news_image_view, 3000));
         controlPanelScreenSteps.clickButtonCreateNews();
         createNewsScreenSteps.fillTheFieldCategory(category);
         createNewsScreenSteps.fillTheFieldHeader(category);
@@ -178,6 +180,7 @@ public class DataHelper {
         ControlPanelScreenSteps controlPanelScreenSteps = new ControlPanelScreenSteps();
         CreateNewsScreenSteps createNewsScreenSteps = new CreateNewsScreenSteps();
 
+        onView(isRoot()).perform(waitUntilShown(R.id.add_news_image_view, 3000));
         controlPanelScreenSteps.clickButtonCreateNews();
         createNewsScreenSteps.fillTheFieldCategory(category);
         createNewsScreenSteps.fillTheFieldHeader(category);
@@ -193,10 +196,27 @@ public class DataHelper {
         ControlPanelScreenSteps controlPanelScreenSteps = new ControlPanelScreenSteps();
         CreateNewsScreenSteps createNewsScreenSteps = new CreateNewsScreenSteps();
 
+        onView(isRoot()).perform(waitUntilShown(R.id.add_news_image_view, 3000));
         controlPanelScreenSteps.clickButtonCreateNews();
         createNewsScreenSteps.fillTheFieldCategory(category);
         createNewsScreenSteps.fillTheFieldHeader(category);
         createNewsScreenSteps.fillTheFieldDateInOneWeek();
+        createNewsScreenSteps.fillTheFieldTimeCurrentTime();
+        createNewsScreenSteps.fillTheFieldDescription(Text.textWithCyrillicSymbols(10));
+
+        createNewsScreenSteps.clickOnSaveButton();
+    }
+
+    public static void createNewsPublicationInOneYear(String category) {
+
+        ControlPanelScreenSteps controlPanelScreenSteps = new ControlPanelScreenSteps();
+        CreateNewsScreenSteps createNewsScreenSteps = new CreateNewsScreenSteps();
+
+        onView(isRoot()).perform(waitUntilShown(R.id.add_news_image_view, 3000));
+        controlPanelScreenSteps.clickButtonCreateNews();
+        createNewsScreenSteps.fillTheFieldCategory(category);
+        createNewsScreenSteps.fillTheFieldHeader(Text.textWithCyrillicSymbols(10));
+        createNewsScreenSteps.fillTheFieldDateInOneYear();
         createNewsScreenSteps.fillTheFieldTimeCurrentTime();
         createNewsScreenSteps.fillTheFieldDescription(Text.textWithCyrillicSymbols(10));
 
@@ -208,6 +228,7 @@ public class DataHelper {
         ControlPanelScreenSteps controlPanelScreenSteps = new ControlPanelScreenSteps();
         CreateNewsScreenSteps createNewsScreenSteps = new CreateNewsScreenSteps();
 
+        onView(isRoot()).perform(waitUntilShown(R.id.add_news_image_view, 3000));
         controlPanelScreenSteps.clickButtonCreateNews();
         createNewsScreenSteps.fillTheFieldCategory(category);
         createNewsScreenSteps.fillTheFieldHeader(category);
@@ -327,7 +348,7 @@ public class DataHelper {
 
     public static class Search {
 
-        public static String tryToFindTheUncreatedComment(String comment) {
+        public static String tryToFindTheUncreatedComment(String comment) throws NoMatchingRootException {
             ClaimsScreenElements claimsScreenElements = new ClaimsScreenElements();
 
             boolean notFound = true;
@@ -362,12 +383,13 @@ public class DataHelper {
                     onView(withText(text)).check(matches(isDisplayed()));
                     notFound = false;
                 } catch (NoMatchingViewException e) {
-
                 }
                 claimsScreenElements.getListOfClaims().check(matches(isDisplayed())).perform(actionOnItemAtPosition(position, swipeUp()));
                 position += 1;
             }
             claimsScreenElements.getListOfClaims().check(matches(isDisplayed())).perform(actionOnItemAtPosition(position + 2, click()));
+            onView(isRoot()).perform(waitUntilShown(R.id.create_time_text_view, 3000));
+            SystemClock.sleep(1000);
         }
 
         public static String tryToFindTheUncreatedClaim(String text) {
@@ -462,10 +484,16 @@ public class DataHelper {
             swipeToBottom();
             swipeToBottom();
             swipeToBottom();
+            swipeToBottom();
+            swipeToBottom();
+            swipeToBottom();
             SystemClock.sleep(3000);
         }
 
         public static void swipeToTopNewsScreen() {
+            swipeToTop();
+            swipeToTop();
+            swipeToTop();
             swipeToTop();
             swipeToTop();
             swipeToTop();
@@ -482,10 +510,29 @@ public class DataHelper {
             swipeToBottom();
             swipeToBottom();
             swipeToBottom();
+            swipeToBottom();
+            swipeToBottom();
+            swipeToBottom();
+            swipeToBottom();
+            swipeToBottom();
+            swipeToBottom();
+            swipeToBottom();
+            swipeToBottom();
+            swipeToBottom();
             SystemClock.sleep(3000);
         }
 
         public static void swipeToTopControlPanelScreen() {
+            swipeToTop();
+            swipeToTop();
+            swipeToTop();
+            swipeToTop();
+            swipeToTop();
+            swipeToTop();
+            swipeToTop();
+            swipeToTop();
+            swipeToTop();
+            swipeToTop();
             swipeToTop();
             swipeToTop();
             swipeToTop();
@@ -649,6 +696,11 @@ public class DataHelper {
 
         public static String dateAYearAgo() {
             LocalDate date = LocalDate.now().plusYears(-1);
+            return date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        }
+
+        public static String dateInOneYear() {
+            LocalDate date = LocalDate.now().plusYears(1);
             return date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         }
     }

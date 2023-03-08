@@ -6,11 +6,14 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
+
+import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
 import android.os.SystemClock;
 
@@ -28,6 +31,7 @@ public class FilterNewsScreenSteps {
 
     // Проверка отображения экрана Фильтрация новостей
     public void checkFilterNewsScreenIsDisplayed() {
+        onView(isRoot()).perform(waitUntilShown(R.id.filter_news_title_text_view, 3000));
         filterNewsScreenElements.getFilterTitle().check(matches(isDisplayed()));
     }
 

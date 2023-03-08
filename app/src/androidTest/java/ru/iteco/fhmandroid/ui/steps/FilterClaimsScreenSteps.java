@@ -1,10 +1,15 @@
 package ru.iteco.fhmandroid.ui.steps;
 
+import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+
+import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
 import ru.iteco.fhmandroid.ui.elements.FilterClaimsScreenElements;
+import ru.iteco.fmhandroid.R;
 
 public class FilterClaimsScreenSteps {
 
@@ -12,6 +17,7 @@ public class FilterClaimsScreenSteps {
 
     // Проверка отображения экрана Фильтрация заявок
     public void checkFilterClaimsScreenIsDisplayed() {
+        onView(isRoot()).perform(waitUntilShown(R.id.claim_filter_dialog_title, 3000));
         filterClaimsScreenElements.getFilterTitle().check(matches(isDisplayed()));
     }
 

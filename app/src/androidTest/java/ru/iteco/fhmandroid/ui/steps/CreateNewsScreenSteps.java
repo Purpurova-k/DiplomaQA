@@ -7,6 +7,7 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -20,10 +21,12 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.currentTimeMinusOn
 import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.currentTimePlusOneHour;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.dateAYearAgo;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.dateInOneWeek;
+import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.dateInOneYear;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.dateTomorrow;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.dateYesterday;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Rand.randomInvalidHour;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Rand.randomInvalidMinute;
+import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
 import androidx.annotation.NonNull;
 
@@ -42,6 +45,7 @@ public class CreateNewsScreenSteps {
 
     // Проверка отображения экрана создания новости
     public void checkCreateNewsScreenIsDisplayed() {
+        onView(isRoot()).perform(waitUntilShown(R.id.save_button, 3000));
         createNewsScreenElements.getCreateTitle().check(matches(isDisplayed()));
         createNewsScreenElements.getNewsTitle().check(matches(isDisplayed()));
     }
@@ -92,6 +96,11 @@ public class CreateNewsScreenSteps {
     // Заполнение поля Дата публикации значением год назад
     public void fillTheFieldDateAYearAgo() {
         createNewsScreenElements.getPublicationDate().perform(replaceText(dateAYearAgo()));
+    }
+
+    // Заполнение поля Дата публикации значением через год
+    public void fillTheFieldDateInOneYear() {
+        createNewsScreenElements.getPublicationDate().perform(replaceText(dateInOneYear()));
     }
 
     // Заполнение поля Время значением текущего времени

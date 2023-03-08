@@ -7,6 +7,7 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
@@ -23,11 +24,14 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.Rand.randomInvalidMinute;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Text.textWithCyrillicSymbols;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Text.textWithLatinSymbols;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Text.textWithSpecialSymbolsAndNumbers;
+import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
 import androidx.annotation.NonNull;
+import androidx.test.espresso.NoMatchingRootException;
 
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.elements.CreateClaimScreenElements;
+import ru.iteco.fhmandroid.ui.matchers.ToastMatcher;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 
@@ -40,6 +44,7 @@ public class CreateClaimScreenSteps {
 
     // Проверка отображения экрана создания заявки
     public void checkCreateClaimScreenIsDisplayed() {
+        onView(isRoot()).perform(waitUntilShown(R.id.custom_app_bar_title_text_view, 3000));
         createClaimScreenElements.getCreateTitle().check(matches(isDisplayed()));
         createClaimScreenElements.getClaimsTitle().check(matches(isDisplayed()));
     }
@@ -175,7 +180,7 @@ public class CreateClaimScreenSteps {
     }
 
     // Проверка отображения поп-апа с предупреждающим сообщением
-    public void checkPopupIsVisible(@NonNull AppActivity activity, String text) {
+    public void checkPopupIsVisible(@NonNull AppActivity activity, String text) throws NoMatchingRootException {
         onView(withText(text)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 

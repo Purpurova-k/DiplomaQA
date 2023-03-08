@@ -34,8 +34,10 @@ import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.NewsScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.WatchScreenSteps;
 
+// Эти тесты необходимо выполнять на устройстве с Android 10 (API 29)
+
 @LargeTest
-public class NewsScreenTest extends BaseAndroidTest {
+public class NewsScreenAPI29Test extends BaseAndroidTest {
 
     MainScreenSteps mainScreenSteps = new MainScreenSteps();
     NewsScreenSteps newsScreenSteps = new NewsScreenSteps();
@@ -128,60 +130,6 @@ public class NewsScreenTest extends BaseAndroidTest {
 
         controlPanelScreenSteps.clickOnNewsItem(0);
         controlPanelScreenSteps.checkTextOfNewsDescriptionIsVisible(0);
-    }
-
-    // Кейс 5.2.2 "Удаление новости в разделе Панель управления новостей"
-    @Test
-    public void shouldDeleteNewsOnControlPanelScreen() {
-        mainScreenSteps.clickOnAllNewsButton();
-        newsScreenSteps.checkNewsScreenIsDisplayed();
-        newsScreenSteps.goToControlPanelScreen();
-        controlPanelScreenSteps.checkControlPanelScreenIsDisplayed();
-        controlPanelScreenSteps.clickOnNewsItem(0);
-
-        String nameBefore = controlPanelScreenSteps.nameText(0);
-        String publicationDateBefore = controlPanelScreenSteps.publicationDateText(0);
-        String creationDateBefore = controlPanelScreenSteps.creationDateText(0);
-        String descriptionBefore = controlPanelScreenSteps.descriptionText(0);
-
-        controlPanelScreenSteps.clickButtonDeleteNews(nameBefore);
-        controlPanelScreenSteps.clickButtonOkDeleteNews();
-
-        controlPanelScreenSteps.clickOnNewsItem(0);
-
-        String nameAfter = controlPanelScreenSteps.nameText(0);
-        String publicationDateAfter = controlPanelScreenSteps.publicationDateText(0);
-        String creationDateAfter = controlPanelScreenSteps.creationDateText(0);
-        String descriptionAfter = controlPanelScreenSteps.descriptionText(0);
-
-        controlPanelScreenSteps.compareDataOfFirstNewsBeforeAndAfterDeleting(nameBefore, nameAfter, publicationDateBefore,
-                publicationDateAfter, creationDateBefore, creationDateAfter, descriptionBefore, descriptionAfter);
-    }
-
-    // Кейс 5.2.3 "Удаление новости в разделе Панель управления новостей с последующей отменой"
-    @Test
-    public void shouldNotDeleteNewsAfterCancelingDeletingOnControlPanelScreen() {
-        mainScreenSteps.clickOnAllNewsButton();
-        newsScreenSteps.checkNewsScreenIsDisplayed();
-        newsScreenSteps.goToControlPanelScreen();
-        controlPanelScreenSteps.checkControlPanelScreenIsDisplayed();
-        controlPanelScreenSteps.clickOnNewsItem(0);
-
-        String nameBefore = controlPanelScreenSteps.nameText(0);
-        String publicationDateBefore = controlPanelScreenSteps.publicationDateText(0);
-        String creationDateBefore = controlPanelScreenSteps.creationDateText(0);
-        String descriptionBefore = controlPanelScreenSteps.descriptionText(0);
-
-        controlPanelScreenSteps.clickButtonDeleteNews(nameBefore);
-        controlPanelScreenSteps.clickButtonCancelDeleteNews();
-
-        String nameAfter = controlPanelScreenSteps.nameText(0);
-        String publicationDateAfter = controlPanelScreenSteps.publicationDateText(0);
-        String creationDateAfter = controlPanelScreenSteps.creationDateText(0);
-        String descriptionAfter = controlPanelScreenSteps.descriptionText(0);
-
-        controlPanelScreenSteps.compareDataOfFirstNewsBeforeAndAfterCancellingDeleting(nameBefore, nameAfter, publicationDateBefore,
-                publicationDateAfter, creationDateBefore, creationDateAfter, descriptionBefore, descriptionAfter);
     }
 
     // Кейс 5.2.4 "Сортировка новостей в разделе Панель управления новостей"

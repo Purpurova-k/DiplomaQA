@@ -1,10 +1,11 @@
 package ru.iteco.fhmandroid.ui.custom;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.validLoginAndPassword;
+import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
-import android.os.SystemClock;
-
-import androidx.test.espresso.NoMatchingViewException;
+import androidx.test.espresso.PerformException;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
@@ -14,6 +15,7 @@ import org.junit.runner.RunWith;
 
 import ru.iteco.fhmandroid.ui.steps.AuthorizationScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
+import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 
 @RunWith(AndroidJUnit4.class)
@@ -27,10 +29,11 @@ public abstract class BaseAndroidTest {
 
     @Before
     public void checkLogout() {
-        SystemClock.sleep(8000);
+        onView(isRoot()).perform(waitUntilShown(R.id.container_custom_app_bar_include_on_fragment_main, 8000));
         try {
             mainScreenSteps.checkMainScreenIsDisplayed();
-        } catch (NoMatchingViewException e) {
+        } catch (PerformException e) {
+            onView(isRoot()).perform(waitUntilShown(R.id.enter_button, 3000));
             authorizationScreenSteps.validLoginAndPasswordAuthorization(validLoginAndPassword());
         }
     }

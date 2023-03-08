@@ -5,16 +5,17 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeDown;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withChild;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.withIndex;
 
 import ru.iteco.fhmandroid.ui.data.DataHelper;
@@ -27,26 +28,31 @@ public class ControlPanelScreenSteps {
 
     // Проверка отображения экрана Панель управления новостей
     public void checkControlPanelScreenIsDisplayed() {
+        onView(isRoot()).perform(waitUntilShown(R.id.news_list_recycler_view, 3000));
         controlPanelScreenElements.getControlPanel().check(matches(isDisplayed()));
     }
 
     // Нажатие на кнопку Сортировка
     public void clickButtonSortNews() {
+        onView(isRoot()).perform(waitUntilShown(R.id.sort_news_material_button, 3000));
         controlPanelScreenElements.getSortNewsButton().perform(click());
     }
 
     // Нажатие на кнопку Фильтр
     public void goToAdvancedFilterNewsScreen() {
+        onView(isRoot()).perform(waitUntilShown(R.id.filter_news_material_button, 3000));
         controlPanelScreenElements.getFilterNewsButton().perform(click());
     }
 
     // Нажатие на кнопку Плюс (создать новость)
     public void clickButtonCreateNews() {
+        onView(isRoot()).perform(waitUntilShown(R.id.add_news_image_view, 3000));
         controlPanelScreenElements.getCreateNewsButton().perform(click());
     }
 
     // Нажатие на новость в списке
     public void clickOnNewsItem(int position) {
+        onView(isRoot()).perform(waitUntilShown(R.id.news_item_material_card_view, 3000));
         controlPanelScreenElements.getListOfNews().perform(actionOnItemAtPosition(position, click()));
     }
 
@@ -57,8 +63,9 @@ public class ControlPanelScreenSteps {
 
     // Нажатие на кнопку удалить рядом с новостью
     public void clickButtonDeleteNews(String nameOfNews) {
-        onView(allOf(withId(R.id.delete_news_item_image_view), withParent(withParent(allOf(withId(R.id.news_item_material_card_view),
-                withChild(withChild(withText(nameOfNews)))))))).perform(click());
+        onView(isRoot()).perform(waitUntilShown(R.id.delete_news_item_image_view, 3000));
+        onView(allOf(withId(R.id.delete_news_item_image_view), hasSibling(withText(nameOfNews)))).perform(click());
+
     }
 
     // Нажатие на ОК для подтверждения удаления новости
@@ -73,6 +80,7 @@ public class ControlPanelScreenSteps {
 
     // Нажатие на кнопку редактировать рядом с новостью
     public void clickButtonEditNews(int position) {
+        onView(isRoot()).perform(waitUntilShown(R.id.edit_news_item_image_view, 3000));
         onView(withIndex(withId(R.id.edit_news_item_image_view), position)).perform(click());
     }
 

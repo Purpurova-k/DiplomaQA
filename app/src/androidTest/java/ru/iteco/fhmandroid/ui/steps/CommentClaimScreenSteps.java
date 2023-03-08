@@ -6,13 +6,17 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 
+import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
+
 import androidx.annotation.NonNull;
 
 import ru.iteco.fhmandroid.ui.elements.CommentClaimScreenElements;
+import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 
 public class CommentClaimScreenSteps {
@@ -21,6 +25,7 @@ public class CommentClaimScreenSteps {
 
     // Проверка отображения экрана добавления комментария к заявке
     public void checkCommentClaimScreenIsDisplayed() {
+        onView(isRoot()).perform(waitUntilShown(R.id.comment_text_input_layout, 3000));
         commentClaimScreenElements.getCommentField().check(matches(isDisplayed()));
         commentClaimScreenElements.getSaveButton().check(matches(isDisplayed()));
         commentClaimScreenElements.getCancelButton().check(matches(isDisplayed()));

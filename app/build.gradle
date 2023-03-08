@@ -7,6 +7,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.firebase.crashlytics'
+
 }
 
 repositories {
@@ -19,7 +20,7 @@ android {
 
     defaultConfig {
         applicationId "ru.iteco.fmhandroid"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 32
         versionCode 14
         versionName "1.0.0"
@@ -104,4 +105,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.0'
+    androidTestImplementation 'io.qameta.allure:allure-kotlin-android:2.4.0'
 }

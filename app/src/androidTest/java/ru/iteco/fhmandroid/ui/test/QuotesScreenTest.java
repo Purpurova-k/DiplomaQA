@@ -3,7 +3,6 @@ package ru.iteco.fhmandroid.ui.test;
 import org.junit.Test;
 
 import ru.iteco.fhmandroid.ui.custom.BaseAndroidTest;
-import ru.iteco.fhmandroid.ui.steps.AuthorizationScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.QuotesScreenSteps;
 

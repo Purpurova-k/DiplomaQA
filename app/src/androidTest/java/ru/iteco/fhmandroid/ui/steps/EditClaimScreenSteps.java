@@ -7,16 +7,19 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Text.textWithCyrillicSymbols;
+import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
 import androidx.annotation.NonNull;
 
 import ru.iteco.fhmandroid.ui.elements.EditClaimScreenElements;
+import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 
 public class EditClaimScreenSteps {
@@ -27,6 +30,7 @@ public class EditClaimScreenSteps {
 
     // Проверка отображения экрана редактирования заявки
     public void checkEditClaimScreenIsDisplayed() {
+        onView(isRoot()).perform(waitUntilShown(R.id.custom_app_bar_title_text_view, 3000));
         editClaimScreenElements.getEditTitle().check(matches(isDisplayed()));
         editClaimScreenElements.getClaimsTitle().check(matches(isDisplayed()));
     }

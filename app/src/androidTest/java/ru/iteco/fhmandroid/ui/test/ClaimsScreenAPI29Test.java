@@ -14,6 +14,7 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.snackCannotEditStatusOfClai
 import static ru.iteco.fhmandroid.ui.data.DataHelper.snackEmptyField;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.validationInvalidTime;
 
+import androidx.test.espresso.NoMatchingRootException;
 import androidx.test.filters.LargeTest;
 
 import org.junit.Test;
@@ -27,8 +28,10 @@ import ru.iteco.fhmandroid.ui.steps.FilterClaimsScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.WatchScreenSteps;
 
+// Эти тесты необходимо выполнять на устройстве с Android 10 (API 29)
+
 @LargeTest
-public class ClaimsScreenTest extends BaseAndroidTest {
+public class ClaimsScreenAPI29Test extends BaseAndroidTest {
 
     MainScreenSteps mainScreenSteps = new MainScreenSteps();
     ClaimsScreenSteps claimsScreenSteps = new ClaimsScreenSteps();
@@ -74,13 +77,21 @@ public class ClaimsScreenTest extends BaseAndroidTest {
         claimsScreenSteps.clickOnClaim();
         claimsScreenSteps.checkScreenOfDetailedDescriptionClaimIsDisplayed();
         claimsScreenSteps.checkStatusInProgress();
+
         swipeToBottomClaimScreen();
         claimsScreenSteps.clickButtonAddCommentToClaim();
         commentClaimScreenSteps.checkCommentClaimScreenIsDisplayed();
 
         String comment = textWithCyrillicSymbols(10);
-        commentClaimScreenSteps.fillTheFieldCommentAndCancel(comment);
-        claimsScreenSteps.checkNotAddedCommentNotVisible(comment);
+        commentClaimScreenSteps.fillTheFieldCommentAndSave(comment);
+
+        swipeToBottomClaimScreen();
+        claimsScreenSteps.clickButtonAddCommentToClaim();
+        commentClaimScreenSteps.checkCommentClaimScreenIsDisplayed();
+
+        String comment1 = textWithCyrillicSymbols(10);
+        commentClaimScreenSteps.fillTheFieldCommentAndCancel(comment1);
+        claimsScreenSteps.checkNotAddedCommentNotVisible(comment1);
     }
 
     // Кейс 4.1.3 "Добавление комментария к заявке в статусе "В работе" с пустым полем Комментарий"
@@ -198,6 +209,7 @@ public class ClaimsScreenTest extends BaseAndroidTest {
 
         String comment = textWithCyrillicSymbols(10);
         claimsScreenSteps.fillTheFieldCommentAndSave(comment);
+        swipeToTopClaimScreen();
         claimsScreenSteps.checkStatusOpened();
         swipeToBottomClaimScreen();
         claimsScreenSteps.checkAddedCommentIsVisible(comment);
@@ -246,7 +258,7 @@ public class ClaimsScreenTest extends BaseAndroidTest {
         claimsScreenSteps.clickExecute();
 
         claimsScreenSteps.clickOkButtonWithoutComment();
-        claimsScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackEmptyField);
+        claimsScreenSteps.checkSnackIsVisible(snackEmptyField);
     }
 
     // Кейс 4.1.10 "Переведение заявки в статусе "В работе" в статус "Выполнена" с заполнением поля Комментарий с последующей отменой"
@@ -270,6 +282,7 @@ public class ClaimsScreenTest extends BaseAndroidTest {
         String comment = textWithCyrillicSymbols(10);
         claimsScreenSteps.fillTheFieldCommentAndCancel(comment);
         claimsScreenSteps.checkTheAbsenceOfComment(comment);
+
         swipeToTopClaimScreen();
         claimsScreenSteps.checkStatusInProgress();
     }
@@ -290,7 +303,7 @@ public class ClaimsScreenTest extends BaseAndroidTest {
 
         swipeToBottomClaimScreen();
         claimsScreenSteps.clickButtonEditClaim();
-        claimsScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackCannotEditClaim);
+        claimsScreenSteps.checkSnackIsVisible(snackCannotEditClaim);
     }
 
     // Кейс 4.1.12 "Переход к экрану детального описания заявки в статусе "В работе" и возврат к списку заявок через стрелку Назад"
@@ -372,7 +385,7 @@ public class ClaimsScreenTest extends BaseAndroidTest {
 
         swipeToBottomClaimScreen();
         claimsScreenSteps.clickButtonEditStatusOfClaim();
-        claimsScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackCannotEditStatusOfClaim);
+        claimsScreenSteps.checkSnackIsVisible(snackCannotEditStatusOfClaim);
     }
 
     // Кейс 4.3.2 "Редактирование заявки в статусе "Выполнена""
@@ -391,7 +404,7 @@ public class ClaimsScreenTest extends BaseAndroidTest {
 
         swipeToBottomClaimScreen();
         claimsScreenSteps.clickButtonEditClaim();
-        claimsScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackCannotEditClaim);
+        claimsScreenSteps.checkSnackIsVisible(snackCannotEditClaim);
     }
 
     // Кейс 4.4.1 "Изменение статуса заявки в статусе "Отменена""
@@ -410,7 +423,7 @@ public class ClaimsScreenTest extends BaseAndroidTest {
 
         swipeToBottomClaimScreen();
         claimsScreenSteps.clickButtonEditStatusOfClaim();
-        claimsScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackCannotEditStatusOfClaim);
+        claimsScreenSteps.checkSnackIsVisible(snackCannotEditStatusOfClaim);
     }
 
     // Кейс 4.4.2 "Редактирование заявки в статусе "Отменена""
@@ -429,7 +442,7 @@ public class ClaimsScreenTest extends BaseAndroidTest {
 
         swipeToBottomClaimScreen();
         claimsScreenSteps.clickButtonEditClaim();
-        claimsScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackCannotEditClaim);
+        claimsScreenSteps.checkSnackIsVisible(snackCannotEditClaim);
     }
 
     // Кейс 4.5.1 "Редактирование заявки в статусе "Открыта""
@@ -465,6 +478,7 @@ public class ClaimsScreenTest extends BaseAndroidTest {
         String timeClaimAfter = claimsScreenSteps.planTimeText();
         String descriptionClaimAfter = claimsScreenSteps.descriptionText();
 
+        claimsScreenSteps.checkScreenOfDetailedDescriptionClaimIsDisplayed();
         claimsScreenSteps.checkStatusInProgress();
         editClaimScreenSteps.compareDataBeforeEditingAndAfter(themeClaimBefore, themeClaimAfter, executorClaimBefore, executorClaimAfter,
                 dateClaimBefore, dateClaimAfter, timeClaimBefore, timeClaimAfter, descriptionClaimBefore, descriptionClaimAfter);
@@ -504,6 +518,7 @@ public class ClaimsScreenTest extends BaseAndroidTest {
         String timeClaimAfter = claimsScreenSteps.planTimeText();
         String descriptionClaimAfter = claimsScreenSteps.descriptionText();
 
+        claimsScreenSteps.checkScreenOfDetailedDescriptionClaimIsDisplayed();
         claimsScreenSteps.checkStatusOpened();
         editClaimScreenSteps.compareDataBeforeAndAfterWhenCancelledEditing(themeClaimBefore, themeClaimAfter, executorClaimBefore, executorClaimAfter,
                 dateClaimBefore, dateClaimAfter, timeClaimBefore, timeClaimAfter, descriptionClaimBefore, descriptionClaimAfter);
@@ -545,118 +560,6 @@ public class ClaimsScreenTest extends BaseAndroidTest {
 
     }
 
-    // Кейс 4.7.1 "Создание новой заявки с валидными данными"
-    @Test
-    public void shouldCreateClaimWithValidData() {
-        mainScreenSteps.clickOnCreateClaimButton();
-        createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
-
-        createClaimScreenSteps.fillTheFieldsWithValidData();
-        createClaimScreenSteps.chooseExecutorFromDropdown(ActivityTestRule.getActivity(), randomExecutor());
-
-        String themeCreated = createClaimScreenSteps.themeText();
-        String executorCreated = createClaimScreenSteps.executorText();
-        String dateCreated = createClaimScreenSteps.dateText();
-        String timeCreated = createClaimScreenSteps.timeText();
-        String descriptionCreated = createClaimScreenSteps.descriptionText();
-
-        createClaimScreenSteps.clickOnSaveButton();
-        mainScreenSteps.clickOnAllClaimsButton();
-        claimsScreenSteps.checkClaimsScreenIsDisplayed();
-        claimsScreenSteps.findCreatedClaim(themeCreated);
-
-        String themeFound = claimsScreenSteps.themeText();
-        String executorFound = claimsScreenSteps.executorText();
-        String dateFound = claimsScreenSteps.planDateText();
-        String timeFound = claimsScreenSteps.planTimeText();
-        String descriptionFound = claimsScreenSteps.descriptionText();
-
-        claimsScreenSteps.compareDataOfCreatedAndFoundClaims(themeCreated, themeFound, executorCreated, executorFound,
-                dateCreated, dateFound, timeCreated, timeFound, descriptionCreated, descriptionFound);
-    }
-
-    // Кейс 4.7.2 "Создание новой заявки с валидными данными с последующей отменой"
-    @Test
-    public void shouldNotCreateClaimAfterCancelCreating() {
-        mainScreenSteps.clickOnCreateClaimButton();
-        createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
-
-        createClaimScreenSteps.fillTheFieldsWithValidData();
-        createClaimScreenSteps.chooseExecutorFromDropdown(ActivityTestRule.getActivity(), randomExecutor());
-
-        String themeCreated = createClaimScreenSteps.themeText();
-
-        createClaimScreenSteps.clickOnCancelButton();
-        createClaimScreenSteps.clickOnOkExitButton();
-        mainScreenSteps.checkMainScreenIsDisplayed();
-
-        mainScreenSteps.clickOnAllClaimsButton();
-        claimsScreenSteps.checkClaimsScreenIsDisplayed();
-        claimsScreenSteps.checkTheAbsenceOfUncreatedClaim(themeCreated);
-    }
-
-    // Кейс 4.8.1 "Создание новой заявки с темой, состоящей из 49 кириллических символов"
-    @Test
-    public void shouldCreateClaimWithTheme49CyrillicSymbols() {
-        mainScreenSteps.clickOnCreateClaimButton();
-        createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
-
-        createClaimScreenSteps.fillTheFieldsWithValidData();
-        createClaimScreenSteps.chooseExecutorFromDropdown(ActivityTestRule.getActivity(), randomExecutor());
-        createClaimScreenSteps.fillTheFieldThemeCyrillicSymbols(49);
-
-        String themeCreated = createClaimScreenSteps.themeText();
-        String executorCreated = createClaimScreenSteps.executorText();
-        String dateCreated = createClaimScreenSteps.dateText();
-        String timeCreated = createClaimScreenSteps.timeText();
-        String descriptionCreated = createClaimScreenSteps.descriptionText();
-
-        createClaimScreenSteps.clickOnSaveButton();
-        mainScreenSteps.clickOnAllClaimsButton();
-        claimsScreenSteps.checkClaimsScreenIsDisplayed();
-        claimsScreenSteps.findCreatedClaim(themeCreated);
-
-        String themeFound = claimsScreenSteps.themeText();
-        String executorFound = claimsScreenSteps.executorText();
-        String dateFound = claimsScreenSteps.planDateText();
-        String timeFound = claimsScreenSteps.planTimeText();
-        String descriptionFound = claimsScreenSteps.descriptionText();
-
-        claimsScreenSteps.compareDataOfCreatedAndFoundClaims(themeCreated, themeFound, executorCreated, executorFound,
-                dateCreated, dateFound, timeCreated, timeFound, descriptionCreated, descriptionFound);
-    }
-
-    // Кейс 4.8.2 "Создание новой заявки с темой, состоящей из 50 кириллических символов"
-    @Test
-    public void shouldCreateClaimWithTheme50CyrillicSymbols() {
-        mainScreenSteps.clickOnCreateClaimButton();
-        createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
-
-        createClaimScreenSteps.fillTheFieldsWithValidData();
-        createClaimScreenSteps.chooseExecutorFromDropdown(ActivityTestRule.getActivity(), randomExecutor());
-        createClaimScreenSteps.fillTheFieldThemeCyrillicSymbols(50);
-
-        String themeCreated = createClaimScreenSteps.themeText();
-        String executorCreated = createClaimScreenSteps.executorText();
-        String dateCreated = createClaimScreenSteps.dateText();
-        String timeCreated = createClaimScreenSteps.timeText();
-        String descriptionCreated = createClaimScreenSteps.descriptionText();
-
-        createClaimScreenSteps.clickOnSaveButton();
-        mainScreenSteps.clickOnAllClaimsButton();
-        claimsScreenSteps.checkClaimsScreenIsDisplayed();
-        claimsScreenSteps.findCreatedClaim(themeCreated);
-
-        String themeFound = claimsScreenSteps.themeText();
-        String executorFound = claimsScreenSteps.executorText();
-        String dateFound = claimsScreenSteps.planDateText();
-        String timeFound = claimsScreenSteps.planTimeText();
-        String descriptionFound = claimsScreenSteps.descriptionText();
-
-        claimsScreenSteps.compareDataOfCreatedAndFoundClaims(themeCreated, themeFound, executorCreated, executorFound,
-                dateCreated, dateFound, timeCreated, timeFound, descriptionCreated, descriptionFound);
-    }
-
     // Кейс 4.8.3 "Создание новой заявки с темой, состоящей из 51 кириллического символа"
     @Test
     public void shouldNotCreateClaimWithTheme51CyrillicSymbols() {
@@ -665,68 +568,6 @@ public class ClaimsScreenTest extends BaseAndroidTest {
 
         createClaimScreenSteps.fillTheFieldThemeCyrillicSymbols(51);
         createClaimScreenSteps.compareNumberOfEnteredSymbolsAndSymbolsInTheField();
-    }
-
-    // Кейс 4.8.4 "Создание новой заявки с темой, состоящей из 50 латинских символов"
-    @Test
-    public void shouldCreateClaimWithTheme50LatinSymbols() {
-        mainScreenSteps.clickOnCreateClaimButton();
-        createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
-
-        createClaimScreenSteps.fillTheFieldsWithValidData();
-        createClaimScreenSteps.chooseExecutorFromDropdown(ActivityTestRule.getActivity(), randomExecutor());
-        createClaimScreenSteps.fillTheFieldThemeLatinSymbols(50);
-
-        String themeCreated = createClaimScreenSteps.themeText();
-        String executorCreated = createClaimScreenSteps.executorText();
-        String dateCreated = createClaimScreenSteps.dateText();
-        String timeCreated = createClaimScreenSteps.timeText();
-        String descriptionCreated = createClaimScreenSteps.descriptionText();
-
-        createClaimScreenSteps.clickOnSaveButton();
-        mainScreenSteps.clickOnAllClaimsButton();
-        claimsScreenSteps.checkClaimsScreenIsDisplayed();
-        claimsScreenSteps.findCreatedClaim(themeCreated);
-
-        String themeFound = claimsScreenSteps.themeText();
-        String executorFound = claimsScreenSteps.executorText();
-        String dateFound = claimsScreenSteps.planDateText();
-        String timeFound = claimsScreenSteps.planTimeText();
-        String descriptionFound = claimsScreenSteps.descriptionText();
-
-        claimsScreenSteps.compareDataOfCreatedAndFoundClaims(themeCreated, themeFound, executorCreated, executorFound,
-                dateCreated, dateFound, timeCreated, timeFound, descriptionCreated, descriptionFound);
-    }
-
-    // Кейс 4.8.5 "Создание новой заявки с темой, состоящей из цифр, знаков препинания и специальных символов"
-    @Test
-    public void shouldCreateClaimWithThemeSpecialSymbolsAndNumbers() {
-        mainScreenSteps.clickOnCreateClaimButton();
-        createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
-
-        createClaimScreenSteps.fillTheFieldsWithValidData();
-        createClaimScreenSteps.chooseExecutorFromDropdown(ActivityTestRule.getActivity(), randomExecutor());
-        createClaimScreenSteps.fillTheFieldThemeSpecialSymbolsAndNumbers();
-
-        String themeCreated = createClaimScreenSteps.themeText();
-        String executorCreated = createClaimScreenSteps.executorText();
-        String dateCreated = createClaimScreenSteps.dateText();
-        String timeCreated = createClaimScreenSteps.timeText();
-        String descriptionCreated = createClaimScreenSteps.descriptionText();
-
-        createClaimScreenSteps.clickOnSaveButton();
-        mainScreenSteps.clickOnAllClaimsButton();
-        claimsScreenSteps.checkClaimsScreenIsDisplayed();
-        claimsScreenSteps.findCreatedClaim(themeCreated);
-
-        String themeFound = claimsScreenSteps.themeText();
-        String executorFound = claimsScreenSteps.executorText();
-        String dateFound = claimsScreenSteps.planDateText();
-        String timeFound = claimsScreenSteps.planTimeText();
-        String descriptionFound = claimsScreenSteps.descriptionText();
-
-        claimsScreenSteps.compareDataOfCreatedAndFoundClaims(themeCreated, themeFound, executorCreated, executorFound,
-                dateCreated, dateFound, timeCreated, timeFound, descriptionCreated, descriptionFound);
     }
 
     // Кейс 4.8.6 "Создание новой заявки с темой, состоящей из пробела"
@@ -745,7 +586,7 @@ public class ClaimsScreenTest extends BaseAndroidTest {
 
     // Кейс 4.8.8 "Создание новой заявки с вводом значения в поле Исполнитель не из выпадающего списка"
     @Test
-    public void shouldNotCreateClaimWithExecutorNotFromDropdown() {
+    public void shouldNotCreateClaimWithExecutorNotFromDropdown() throws NoMatchingRootException {
         mainScreenSteps.clickOnCreateClaimButton();
         createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
 
@@ -781,100 +622,7 @@ public class ClaimsScreenTest extends BaseAndroidTest {
         createClaimScreenSteps.fillTheFieldTimePastTime();
 
         createClaimScreenSteps.clickOnSaveButton();
-        createClaimScreenSteps.checkPopupIsVisible(ActivityTestRule.getActivity(), popupTimeForClaimShouldBeAtLeast1Hour);
-    }
-
-    // Кейс 4.8.12 "Создание новой заявки с выбором завтрашней даты"
-    @Test
-    public void shouldCreateClaimWithDateTomorrow() {
-        mainScreenSteps.clickOnCreateClaimButton();
-        createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
-
-        createClaimScreenSteps.fillTheFieldsWithValidData();
-        createClaimScreenSteps.chooseExecutorFromDropdown(ActivityTestRule.getActivity(), randomExecutor());
-        createClaimScreenSteps.fillTheFieldDateTomorrow();
-
-        String themeCreated = createClaimScreenSteps.themeText();
-        String executorCreated = createClaimScreenSteps.executorText();
-        String dateCreated = createClaimScreenSteps.dateText();
-        String timeCreated = createClaimScreenSteps.timeText();
-        String descriptionCreated = createClaimScreenSteps.descriptionText();
-
-        createClaimScreenSteps.clickOnSaveButton();
-        mainScreenSteps.clickOnAllClaimsButton();
-        claimsScreenSteps.checkClaimsScreenIsDisplayed();
-        claimsScreenSteps.findCreatedClaim(themeCreated);
-
-        String themeFound = claimsScreenSteps.themeText();
-        String executorFound = claimsScreenSteps.executorText();
-        String dateFound = claimsScreenSteps.planDateText();
-        String timeFound = claimsScreenSteps.planTimeText();
-        String descriptionFound = claimsScreenSteps.descriptionText();
-
-        claimsScreenSteps.compareDataOfCreatedAndFoundClaims(themeCreated, themeFound, executorCreated, executorFound,
-                dateCreated, dateFound, timeCreated, timeFound, descriptionCreated, descriptionFound);
-    }
-
-    // Кейс 4.8.13 "Создание новой заявки с выбором даты через месяц"
-    @Test
-    public void shouldCreateClaimWithDateInMonth() {
-        mainScreenSteps.clickOnCreateClaimButton();
-        createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
-
-        createClaimScreenSteps.fillTheFieldsWithValidData();
-        createClaimScreenSteps.chooseExecutorFromDropdown(ActivityTestRule.getActivity(), randomExecutor());
-        createClaimScreenSteps.fillTheFieldDateInOneMonth();
-
-        String themeCreated = createClaimScreenSteps.themeText();
-        String executorCreated = createClaimScreenSteps.executorText();
-        String dateCreated = createClaimScreenSteps.dateText();
-        String timeCreated = createClaimScreenSteps.timeText();
-        String descriptionCreated = createClaimScreenSteps.descriptionText();
-
-        createClaimScreenSteps.clickOnSaveButton();
-        mainScreenSteps.clickOnAllClaimsButton();
-        claimsScreenSteps.checkClaimsScreenIsDisplayed();
-        claimsScreenSteps.findCreatedClaim(themeCreated);
-
-        String themeFound = claimsScreenSteps.themeText();
-        String executorFound = claimsScreenSteps.executorText();
-        String dateFound = claimsScreenSteps.planDateText();
-        String timeFound = claimsScreenSteps.planTimeText();
-        String descriptionFound = claimsScreenSteps.descriptionText();
-
-        claimsScreenSteps.compareDataOfCreatedAndFoundClaims(themeCreated, themeFound, executorCreated, executorFound,
-                dateCreated, dateFound, timeCreated, timeFound, descriptionCreated, descriptionFound);
-    }
-
-    // Кейс 4.8.14 "Создание новой заявки с выбором даты через год"
-    @Test
-    public void shouldCreateClaimWithDateInYear() {
-        mainScreenSteps.clickOnCreateClaimButton();
-        createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
-
-        createClaimScreenSteps.fillTheFieldsWithValidData();
-        createClaimScreenSteps.chooseExecutorFromDropdown(ActivityTestRule.getActivity(), randomExecutor());
-        createClaimScreenSteps.fillTheFieldDateInOneYear();
-
-        String themeCreated = createClaimScreenSteps.themeText();
-        String executorCreated = createClaimScreenSteps.executorText();
-        String dateCreated = createClaimScreenSteps.dateText();
-        String timeCreated = createClaimScreenSteps.timeText();
-        String descriptionCreated = createClaimScreenSteps.descriptionText();
-
-        createClaimScreenSteps.clickOnSaveButton();
-        mainScreenSteps.clickOnAllClaimsButton();
-        claimsScreenSteps.checkClaimsScreenIsDisplayed();
-        claimsScreenSteps.findCreatedClaim(themeCreated);
-
-        String themeFound = claimsScreenSteps.themeText();
-        String executorFound = claimsScreenSteps.executorText();
-        String dateFound = claimsScreenSteps.planDateText();
-        String timeFound = claimsScreenSteps.planTimeText();
-        String descriptionFound = claimsScreenSteps.descriptionText();
-
-        claimsScreenSteps.compareDataOfCreatedAndFoundClaims(themeCreated, themeFound, executorCreated, executorFound,
-                dateCreated, dateFound, timeCreated, timeFound, descriptionCreated, descriptionFound);
+        createClaimScreenSteps.checkPopupIsVisible (ActivityTestRule.getActivity(), popupTimeForClaimShouldBeAtLeast1Hour);
     }
 
     // Кейс 4.8.15 "Создание новой заявки с вводом несуществующего времени"
@@ -885,68 +633,6 @@ public class ClaimsScreenTest extends BaseAndroidTest {
 
         createClaimScreenSteps.fillTheFieldTimeInvalidTime();
         watchScreenSteps.checkValidationInvalidTimeIsDisplayed(ActivityTestRule.getActivity(), validationInvalidTime);
-    }
-
-    // Кейс 4.8.16 "Создание новой заявки с описанием состоящим из латинских символов"
-    @Test
-    public void shouldCreateClaimWithDescriptionLatinSymbols() {
-        mainScreenSteps.clickOnCreateClaimButton();
-        createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
-
-        createClaimScreenSteps.fillTheFieldsWithValidData();
-        createClaimScreenSteps.chooseExecutorFromDropdown(ActivityTestRule.getActivity(), randomExecutor());
-        createClaimScreenSteps.fillTheFieldDescriptionLatinSymbols(25);
-
-        String themeCreated = createClaimScreenSteps.themeText();
-        String executorCreated = createClaimScreenSteps.executorText();
-        String dateCreated = createClaimScreenSteps.dateText();
-        String timeCreated = createClaimScreenSteps.timeText();
-        String descriptionCreated = createClaimScreenSteps.descriptionText();
-
-        createClaimScreenSteps.clickOnSaveButton();
-        mainScreenSteps.clickOnAllClaimsButton();
-        claimsScreenSteps.checkClaimsScreenIsDisplayed();
-        claimsScreenSteps.findCreatedClaim(themeCreated);
-
-        String themeFound = claimsScreenSteps.themeText();
-        String executorFound = claimsScreenSteps.executorText();
-        String dateFound = claimsScreenSteps.planDateText();
-        String timeFound = claimsScreenSteps.planTimeText();
-        String descriptionFound = claimsScreenSteps.descriptionText();
-
-        claimsScreenSteps.compareDataOfCreatedAndFoundClaims(themeCreated, themeFound, executorCreated, executorFound,
-                dateCreated, dateFound, timeCreated, timeFound, descriptionCreated, descriptionFound);
-    }
-
-    // Кейс 4.8.17 "Создание новой заявки с описанием состоящим из цифр, знаков препинания и специальных символов"
-    @Test
-    public void shouldCreateClaimWithDescriptionSpecialSymbolsAndNumbers() {
-        mainScreenSteps.clickOnCreateClaimButton();
-        createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
-
-        createClaimScreenSteps.fillTheFieldsWithValidData();
-        createClaimScreenSteps.chooseExecutorFromDropdown(ActivityTestRule.getActivity(), randomExecutor());
-        createClaimScreenSteps.fillTheFieldDescriptionSpecialSymbolsAndNumbers(25);
-
-        String themeCreated = createClaimScreenSteps.themeText();
-        String executorCreated = createClaimScreenSteps.executorText();
-        String dateCreated = createClaimScreenSteps.dateText();
-        String timeCreated = createClaimScreenSteps.timeText();
-        String descriptionCreated = createClaimScreenSteps.descriptionText();
-
-        createClaimScreenSteps.clickOnSaveButton();
-        mainScreenSteps.clickOnAllClaimsButton();
-        claimsScreenSteps.checkClaimsScreenIsDisplayed();
-        claimsScreenSteps.findCreatedClaim(themeCreated);
-
-        String themeFound = claimsScreenSteps.themeText();
-        String executorFound = claimsScreenSteps.executorText();
-        String dateFound = claimsScreenSteps.planDateText();
-        String timeFound = claimsScreenSteps.planTimeText();
-        String descriptionFound = claimsScreenSteps.descriptionText();
-
-        claimsScreenSteps.compareDataOfCreatedAndFoundClaims(themeCreated, themeFound, executorCreated, executorFound,
-                dateCreated, dateFound, timeCreated, timeFound, descriptionCreated, descriptionFound);
     }
 
     // Кейс 4.8.18 "Создание новой заявки с описанием состоящим из пробела"

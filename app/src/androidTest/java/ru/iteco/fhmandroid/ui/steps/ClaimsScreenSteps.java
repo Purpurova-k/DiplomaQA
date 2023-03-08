@@ -9,6 +9,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withChild;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
@@ -22,7 +23,10 @@ import static org.junit.Assert.assertNotEquals;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Search.findTheCreatedClaim;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Search.tryToFindTheUncreatedComment;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Search.tryToFindTheUncreatedClaim;
+import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.withIndex;
+
+import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
 import androidx.test.espresso.ViewInteraction;
@@ -30,6 +34,7 @@ import androidx.test.espresso.ViewInteraction;
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.elements.ClaimsScreenElements;
 import ru.iteco.fhmandroid.ui.elements.FilterClaimsScreenElements;
+import ru.iteco.fhmandroid.ui.matchers.ToastMatcher;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 
@@ -40,6 +45,7 @@ public class ClaimsScreenSteps {
 
     // Проверка отображения экрана детального описания заявки
     public void checkScreenOfDetailedDescriptionClaimIsDisplayed() {
+        onView(isRoot()).perform(waitUntilShown(R.id.title_label_text_view, 3000));
         claimsScreenElements.getTitleLabel().check(matches(isDisplayed()));
         claimsScreenElements.getExecutorLabel().check(matches(isDisplayed()));
         claimsScreenElements.getPlanDateLabel().check(matches(isDisplayed()));
@@ -51,6 +57,7 @@ public class ClaimsScreenSteps {
 
     // Проверка отображения экрана Заявки
     public void checkClaimsScreenIsDisplayed() {
+        onView(isRoot()).perform(waitUntilShown(R.id.claim_list_recycler_view, 3000));
         claimsScreenElements.getClaimsSectionTitle().check(matches(isDisplayed()));
         claimsScreenElements.getFilterButton().check(matches(isDisplayed()));
         claimsScreenElements.getCreateButton().check(matches(isDisplayed()));
@@ -89,11 +96,14 @@ public class ClaimsScreenSteps {
 
     // Нажатие на первую заявку в списке
     public void clickOnClaim() {
+        SystemClock.sleep(1000);
+        onView(isRoot()).perform(waitUntilShown(R.id.claim_list_recycler_view, 3000));
         claimsScreenElements.getListOfClaims().perform(actionOnItemAtPosition(0, click()));
     }
 
     // Нажатие на кнопку добавления комментария
     public void clickButtonAddCommentToClaim() {
+        onView(isRoot()).perform(waitUntilShown(R.id.add_comment_image_button, 3000));
         claimsScreenElements.getAddCommentButton().perform(click());
     }
 
@@ -105,6 +115,7 @@ public class ClaimsScreenSteps {
 
     // Нажатие на кнопку редактирования статуса заявки
     public void clickButtonEditStatusOfClaim() {
+        onView(isRoot()).perform(waitUntilShown(R.id.edit_processing_image_button, 3000));
         claimsScreenElements.getEditStatusOfClaimButton().perform(click());
     }
 
@@ -140,18 +151,21 @@ public class ClaimsScreenSteps {
 
     //  Заполнение поля комментарий с последующим нажатием на ОК
     public void fillTheFieldCommentAndSave(String comment) {
+        onView(isRoot()).perform(waitUntilShown(R.id.editText, 3000));
         claimsScreenElements.getCommentField().perform(replaceText(comment));
         claimsScreenElements.getOkButton().perform(click());
     }
 
     // Заполнение поля комментарий с последующим нажатием на Отмена
     public void fillTheFieldCommentAndCancel(String comment) {
+        onView(isRoot()).perform(waitUntilShown(R.id.editText, 3000));
         claimsScreenElements.getCommentField().perform(replaceText(comment));
         claimsScreenElements.getCancelButton().perform(click());
     }
 
     // Нажатие на кнопку ОК без заполнения значением поля комментарий
     public void clickOkButtonWithoutComment() {
+        onView(isRoot()).perform(waitUntilShown(R.id.editText, 3000));
         claimsScreenElements.getOkButton().perform(click());
     }
 
@@ -225,14 +239,16 @@ public class ClaimsScreenSteps {
     }
 
     // Проверка отображения снэка с ошибкой
-    public void checkSnackIsVisible(@NonNull AppActivity activity, String text) {
-        onView(withText(text)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
+    public void checkSnackIsVisible(String text) {
+        onView(withText(text)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
     }
 
     // Проверка отображения экрана с надписью "Здесь пока ничего нет"
     public void checkEmptyScreenIsDisplayed() {
+        onView(isRoot()).perform(waitUntilShown(R.id.empty_claim_list_text_view, 3000));
         onView(withText(startsWith("Здесь пока ничего нет"))).check(matches(isDisplayed()));
     }
+
 
 
     // Получение текстовых данных из карточки заявки

@@ -5,9 +5,11 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.junit.Assert.assertEquals;
+import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.withIndex;
 
 import ru.iteco.fhmandroid.ui.data.DataHelper;
@@ -20,26 +22,31 @@ public class NewsScreenSteps {
 
     // Проверка отображения экрана Новости
     public void checkNewsScreenIsDisplayed() {
+        onView(isRoot()).perform(waitUntilShown(R.id.news_list_recycler_view, 3000));
         newsScreenElements.getNewsSectionTitle().check(matches(isDisplayed()));
     }
 
     // Нажатие на кнопку Сортировка
     public void clickButtonSortNews() {
+        onView(isRoot()).perform(waitUntilShown(R.id.sort_news_material_button, 3000));
         newsScreenElements.getSortNewsButton().perform(click());
     }
 
     // Нажатие на кнопку Фильтр
     public void goToFilterNewsScreen() {
+        onView(isRoot()).perform(waitUntilShown(R.id.filter_news_material_button, 3000));
         newsScreenElements.getFilterNewsButton().perform(click());
     }
 
     // Нажатие на кнопку Редактировать новости
     public void goToControlPanelScreen() {
+        onView(isRoot()).perform(waitUntilShown(R.id.edit_news_material_button, 3000));
         newsScreenElements.getEditNewsButton().perform(click());
     }
 
     // Нажатие на кнопку свернуть/развернуть рядом с новостью
     public void expandNewsDescription(int position) {
+        onView(isRoot()).perform(waitUntilShown(R.id.view_news_item_image_view, 3000));
         newsScreenElements.getExpandNewsDescriptionButton().perform(actionOnItemAtPosition(position, click()));
     }
 

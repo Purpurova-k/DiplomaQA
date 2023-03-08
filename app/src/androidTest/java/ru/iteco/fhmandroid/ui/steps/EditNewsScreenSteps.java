@@ -7,6 +7,7 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -18,6 +19,7 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.currentMinute;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.currentTimePlusOneHour;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.dateTomorrow;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.dateYesterday;
+import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
 import androidx.annotation.NonNull;
 
@@ -33,6 +35,7 @@ public class EditNewsScreenSteps {
 
     // Проверка отображения экрана создания новости
     public void checkEditNewsScreenIsDisplayed() {
+        onView(isRoot()).perform(waitUntilShown(R.id.save_button, 3000));
         editNewsScreenElements.getEditTitle().check(matches(isDisplayed()));
         editNewsScreenElements.getNewsTitle().check(matches(isDisplayed()));
     }
