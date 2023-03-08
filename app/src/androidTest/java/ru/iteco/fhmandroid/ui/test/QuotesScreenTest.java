@@ -1,7 +1,10 @@
+// Эти тесты необходимо выполнять на устройстве с Android 10 (API 29)
+
 package ru.iteco.fhmandroid.ui.test;
 
 import org.junit.Test;
 
+import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fhmandroid.ui.custom.BaseAndroidTest;
 import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.QuotesScreenSteps;
@@ -12,8 +15,8 @@ public class QuotesScreenTest extends BaseAndroidTest {
     MainScreenSteps mainScreenSteps = new MainScreenSteps();
     QuotesScreenSteps quotesScreenSteps = new QuotesScreenSteps();
 
-    // Кейс 3.1.1 "Открытие описания цитаты через тап на цитату"
     @Test
+    @DisplayName("Кейс 3.1.1 \"Открытие описания цитаты через тап на цитату\"")
     public void shouldCollapseAndExpandQuoteDescription() {
         mainScreenSteps.goToSectionQuotesFromAppBar();
         quotesScreenSteps.checkQuotesScreenIsDisplayed();

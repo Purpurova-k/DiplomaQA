@@ -13,6 +13,7 @@ import static org.hamcrest.core.IsNot.not;
 
 import androidx.annotation.NonNull;
 
+import io.qameta.allure.kotlin.Step;
 import ru.iteco.fhmandroid.ui.elements.WatchScreenElements;
 import ru.iteco.fmhandroid.ui.AppActivity;
 
@@ -40,9 +41,8 @@ public class WatchScreenSteps {
         watchScreenElements.getMinuteField().perform(replaceText(minute));
     }
 
-    // Проверка отображения валидации поля - только это добавить в шаги Алюр, остальные не надо
+    @Step("Проверка отображения валидации поля")
     public void checkValidationInvalidTimeIsDisplayed(@NonNull AppActivity activity, String text) {
         onView(withText(text)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
-
 }

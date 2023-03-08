@@ -12,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.withIndex;
 
+import io.qameta.allure.kotlin.Step;
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.elements.NewsScreenElements;
 import ru.iteco.fmhandroid.R;
@@ -20,42 +21,42 @@ public class NewsScreenSteps {
 
     NewsScreenElements newsScreenElements = new NewsScreenElements();
 
-    // Проверка отображения экрана Новости
+    @Step("Проверка отображения экрана Новости")
     public void checkNewsScreenIsDisplayed() {
         onView(isRoot()).perform(waitUntilShown(R.id.news_list_recycler_view, 3000));
         newsScreenElements.getNewsSectionTitle().check(matches(isDisplayed()));
     }
 
-    // Нажатие на кнопку Сортировка
+    @Step("Нажатие на кнопку Сортировка")
     public void clickButtonSortNews() {
         onView(isRoot()).perform(waitUntilShown(R.id.sort_news_material_button, 3000));
         newsScreenElements.getSortNewsButton().perform(click());
     }
 
-    // Нажатие на кнопку Фильтр
+    @Step("Нажатие на кнопку Фильтр")
     public void goToFilterNewsScreen() {
         onView(isRoot()).perform(waitUntilShown(R.id.filter_news_material_button, 3000));
         newsScreenElements.getFilterNewsButton().perform(click());
     }
 
-    // Нажатие на кнопку Редактировать новости
+    @Step("Нажатие на кнопку Редактировать новости")
     public void goToControlPanelScreen() {
         onView(isRoot()).perform(waitUntilShown(R.id.edit_news_material_button, 3000));
         newsScreenElements.getEditNewsButton().perform(click());
     }
 
-    // Нажатие на кнопку свернуть/развернуть рядом с новостью
+    @Step("Нажатие на кнопку свернуть/развернуть рядом с новостью")
     public void expandNewsDescription(int position) {
         onView(isRoot()).perform(waitUntilShown(R.id.view_news_item_image_view, 3000));
         newsScreenElements.getExpandNewsDescriptionButton().perform(actionOnItemAtPosition(position, click()));
     }
 
-    // Проверка, что видно описание новости
+    @Step("Проверка, что видно описание новости")
     public void checkTextOfNewsDescriptionIsVisible(int position) {
         onView(withIndex(withId(R.id.news_item_description_text_view), position)).check(matches(isDisplayed()));
     }
 
-    // Проверка сортировки новостей от более старых к более новым и наоборот
+    @Step("Проверка сортировки новостей от более старых к более новым и наоборот")
     public void checkSortingNewsIsSuccessful(String firstNewsNameBeforeSorting, String firstNewsDateBeforeSorting,
                                              String lastNewsNameBeforeSorting, String lastNewsDateBeforeSorting,
                                              String firstNewsNameAfterSorting, String firstNewsDateAfterSorting,
@@ -66,7 +67,7 @@ public class NewsScreenSteps {
         assertEquals(lastNewsDateBeforeSorting, firstNewsDateAfterSorting);
     }
 
-    // Сравнение данных отфильтрованных новостей с введенными данными в фильтрации новостей
+    @Step("Сравнение данных отфильтрованных новостей с введенными данными в фильтрации новостей")
     public void compareDataOfFilteredNewsAndDataForFiltering(String filterName, String filterDate, String filteredNewsName,
                                                              String filteredNewsDate) {
         assertEquals(filterName, filteredNewsName);

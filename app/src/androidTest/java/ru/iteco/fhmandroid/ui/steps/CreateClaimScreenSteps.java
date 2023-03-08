@@ -29,9 +29,9 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 import androidx.annotation.NonNull;
 import androidx.test.espresso.NoMatchingRootException;
 
+import io.qameta.allure.kotlin.Step;
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.elements.CreateClaimScreenElements;
-import ru.iteco.fhmandroid.ui.matchers.ToastMatcher;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 
@@ -42,14 +42,14 @@ public class CreateClaimScreenSteps {
     CalendarScreenSteps calendarScreenSteps = new CalendarScreenSteps();
     WatchScreenSteps watchScreenSteps = new WatchScreenSteps();
 
-    // Проверка отображения экрана создания заявки
+    @Step("Проверка отображения экрана создания заявки")
     public void checkCreateClaimScreenIsDisplayed() {
         onView(isRoot()).perform(waitUntilShown(R.id.custom_app_bar_title_text_view, 3000));
         createClaimScreenElements.getCreateTitle().check(matches(isDisplayed()));
         createClaimScreenElements.getClaimsTitle().check(matches(isDisplayed()));
     }
 
-    // Заполнение полей валидными данными
+    @Step("Заполнение полей валидными данными")
     public void fillTheFieldsWithValidData() {
         createClaimScreenElements.getTheme().perform(replaceText(textWithCyrillicSymbols(20)));
         createClaimScreenElements.getDate().perform(click());
@@ -61,39 +61,39 @@ public class CreateClaimScreenSteps {
         createClaimScreenElements.getDescription().perform(replaceText(textWithCyrillicSymbols(25)));
     }
 
-    // Заполнение поля Тема новым значением, состоящим из кириллических символов
+    @Step("Заполнение поля Тема новым значением, состоящим из кириллических символов")
     public void fillTheFieldThemeCyrillicSymbols(int numberOfSymbols) {
         createClaimScreenElements.getTheme().perform(replaceText(textWithCyrillicSymbols(numberOfSymbols)));
     }
 
-    // Заполнение поля Тема новым значением, состоящим из латинских символов
+    @Step("Заполнение поля Тема новым значением, состоящим из латинских символов")
     public void fillTheFieldThemeLatinSymbols(int numberOfSymbols) {
         createClaimScreenElements.getTheme().perform(replaceText(textWithLatinSymbols(numberOfSymbols)));
     }
 
-    // Заполнение поля Тема новым значением, состоящим из цифр, знаков препинания и специальных символов
+    @Step("Заполнение поля Тема новым значением, состоящим из цифр, знаков препинания и специальных символов")
     public void fillTheFieldThemeSpecialSymbolsAndNumbers() {
         createClaimScreenElements.getTheme().perform(replaceText(textWithSpecialSymbolsAndNumbers(20)));
     }
 
-    // Заполнение поля Тема новым значением, состоящим из пробела
+    @Step("Заполнение поля Тема новым значением, состоящим из пробела")
     public void fillTheFieldThemeWhiteSpace() {
         createClaimScreenElements.getTheme().perform(replaceText(" "));
     }
 
-    // Выбор исполнителя из списка
+    @Step("Выбор исполнителя из списка")
     public void chooseExecutorFromDropdown(@NonNull AppActivity activity, String executor) {
         createClaimScreenElements.getExecutor().perform(click());
         onView(withText(executor)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).perform(click());
         createClaimScreenElements.getExecutor().perform(closeSoftKeyboard());
     }
 
-    // Заполнение поля Исполнитель значением не из выпадающего списка
+    @Step("Заполнение поля Исполнитель значением не из выпадающего списка")
     public void fillTheFieldExecutorNotFromDropdown() {
         createClaimScreenElements.getExecutor().perform(replaceText("Ванов Иван Иванович"));
     }
 
-    // Заполнение поля Время значением текущего времени
+    @Step("Заполнение поля Время значением текущего времени")
     public void fillTheFieldTimeCurrentTime() {
         createClaimScreenElements.getTime().perform(click());
         watchScreenSteps.clickOnOpenKeyboardButton();
@@ -102,7 +102,7 @@ public class CreateClaimScreenSteps {
         watchScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение поля Время значением прошедшего времени
+    @Step("Заполнение поля Время значением прошедшего времени")
     public void fillTheFieldTimePastTime() {
         createClaimScreenElements.getTime().perform(click());
         watchScreenSteps.clickOnOpenKeyboardButton();
@@ -111,7 +111,7 @@ public class CreateClaimScreenSteps {
         watchScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение поля Время значением несуществующего времени
+    @Step("Заполнение поля Время значением несуществующего времени")
     public void fillTheFieldTimeInvalidTime() {
         createClaimScreenElements.getTime().perform(click());
         watchScreenSteps.clickOnOpenKeyboardButton();
@@ -120,12 +120,12 @@ public class CreateClaimScreenSteps {
         watchScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение поля Дата значением завтрашний день
+    @Step("Заполнение поля Дата значением завтрашний день")
     public void fillTheFieldDateTomorrow() {
         createClaimScreenElements.getDate().perform(replaceText(dateTomorrow()));
     }
 
-    // Заполнение поля Дата значием даты через месяц
+    @Step("Заполнение поля Дата значием даты через месяц")
     public void fillTheFieldDateInOneMonth() {
         createClaimScreenElements.getDate().perform(click());
         calendarScreenSteps.clickOnNextMonthButton();
@@ -134,7 +134,7 @@ public class CreateClaimScreenSteps {
         createClaimScreenElements.getDate().perform(replaceText(dateInOneMonth()));
     }
 
-    // Заполнение поля Дата значием даты через год
+    @Step("Заполнение поля Дата значием даты через год")
     public void fillTheFieldDateInOneYear() {
         createClaimScreenElements.getDate().perform(click());
         calendarScreenSteps.clickOnChooseYearButton();
@@ -142,48 +142,47 @@ public class CreateClaimScreenSteps {
         calendarScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение поля Описание новым значением, состоящим из латинских символов
+    @Step("Заполнение поля Описание новым значением, состоящим из латинских символов")
     public void fillTheFieldDescriptionLatinSymbols(int numberOfSymbols) {
         createClaimScreenElements.getDescription().perform(replaceText(textWithLatinSymbols(numberOfSymbols)));
     }
 
-    // Заполнение поля Описание новым значением, состоящим из цифр, знаков препинания и специальных символов
+    @Step("Заполнение поля Описание новым значением, состоящим из цифр, знаков препинания и специальных символов")
     public void fillTheFieldDescriptionSpecialSymbolsAndNumbers(int numberOfSymbols) {
         createClaimScreenElements.getDescription().perform(replaceText(textWithSpecialSymbolsAndNumbers(numberOfSymbols)));
     }
 
-    // Заполнение поля Описание новым значением, состоящим из пробела
+    @Step("Заполнение поля Описание новым значением, состоящим из пробела")
     public void fillTheFieldDescriptionWhiteSpace() {
         createClaimScreenElements.getDescription().perform(replaceText(" "));
     }
 
-    // Нажатие на кнопу сохранить
+    @Step("Нажатие на кнопу сохранить")
     public void clickOnSaveButton() {
         createClaimScreenElements.getSaveButton().perform(click());
     }
 
-    // Нажатие на кнопку Отмена
+    @Step("Нажатие на кнопку Отмена")
     public void clickOnCancelButton() {
         createClaimScreenElements.getCancelButton().perform(click());
     }
 
-    // Нажатие на кнопку ОК для подтверждения отмены создания заявки
+    @Step("Нажатие на кнопку ОК для подтверждения отмены создания заявки")
     public void clickOnOkExitButton() {
         createClaimScreenElements.getOkExitButton().perform(click());
     }
 
-    // Сравнение количества вводимых символов и символов в поле
+    @Step("Сравнение количества вводимых символов и символов в поле")
     public void compareNumberOfEnteredSymbolsAndSymbolsInTheField() {
         String text = DataHelper.Text.getText(onView(withId(R.id.title_edit_text)));
         int textLength = text.length();
         assertEquals(50, textLength);
     }
 
-    // Проверка отображения поп-апа с предупреждающим сообщением
+    @Step("Проверка отображения поп-апа с предупреждающим сообщением")
     public void checkPopupIsVisible(@NonNull AppActivity activity, String text) throws NoMatchingRootException {
         onView(withText(text)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
-
 
 
     // Получение текстовых данных из формы создаваемой заявки

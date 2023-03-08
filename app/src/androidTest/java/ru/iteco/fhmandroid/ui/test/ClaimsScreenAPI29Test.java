@@ -1,3 +1,5 @@
+// Эти тесты необходимо выполнять на устройстве с Android 10 (API 29)
+
 package ru.iteco.fhmandroid.ui.test;
 
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Rand.randomExecutor;
@@ -19,6 +21,7 @@ import androidx.test.filters.LargeTest;
 
 import org.junit.Test;
 
+import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fhmandroid.ui.custom.BaseAndroidTest;
 import ru.iteco.fhmandroid.ui.steps.ClaimsScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.CommentClaimScreenSteps;
@@ -28,7 +31,6 @@ import ru.iteco.fhmandroid.ui.steps.FilterClaimsScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.WatchScreenSteps;
 
-// Эти тесты необходимо выполнять на устройстве с Android 10 (API 29)
 
 @LargeTest
 public class ClaimsScreenAPI29Test extends BaseAndroidTest {
@@ -41,8 +43,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
     CreateClaimScreenSteps createClaimScreenSteps = new CreateClaimScreenSteps();
     WatchScreenSteps watchScreenSteps = new WatchScreenSteps();
 
-    // Кейс 4.1.1 "Добавление комментария, состоящего из кириллических символов, к заявке в статусе "В работе" с последующим сохранением"
     @Test
+    @DisplayName("Кейс 4.1.1 \"Добавление комментария, состоящего из кириллических символов, к заявке в статусе \"В работе\" с последующим сохранением\"")
     public void shouldAddCommentWithCyrillicSymbolsToClaim() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -64,8 +66,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkAddedCommentIsVisible(comment);
     }
 
-    // Кейс 4.1.2 "Добавление комментария к заявке в статусе "В работе" с последующей отменой"
     @Test
+    @DisplayName("Кейс 4.1.2 \"Добавление комментария к заявке в статусе \"В работе\" с последующей отменой\"")
     public void shouldNotAddCommentWhenCancel() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -94,8 +96,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkNotAddedCommentNotVisible(comment1);
     }
 
-    // Кейс 4.1.3 "Добавление комментария к заявке в статусе "В работе" с пустым полем Комментарий"
     @Test
+    @DisplayName("Кейс 4.1.2 \"Добавление комментария к заявке в статусе \"В работе\" с последующей отменой\"")
     public void shouldWarnWhenCommentFieldIsEmpty() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -115,8 +117,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         commentClaimScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackEmptyField);
     }
 
-    // Кейс 4.1.4 "Добавление комментария, состоящего из латинских символов, к заявке в статусе "В работе" с последующим сохранением"
     @Test
+    @DisplayName("Кейс 4.1.4 \"Добавление комментария, состоящего из латинских символов, к заявке в статусе \"В работе\" с последующим сохранением\"")
     public void shouldAddCommentWithLatinSymbolsToClaim() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -138,8 +140,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkAddedCommentIsVisible(comment);
     }
 
-    // Кейс 4.1.5 "Добавление комментария, состоящего из цифр, знаков препинания и специальных символов, к заявке в статусе "В работе" с последующим сохранением"
     @Test
+    @DisplayName("Кейс 4.1.5 \"Добавление комментария, состоящего из цифр, знаков препинания и специальных символов, к заявке в статусе \"В работе\" с последующим сохранением\"")
     public void shouldAddCommentWithSpecialSymbolsAndNumbersToClaim() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -161,8 +163,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkAddedCommentIsVisible(comment);
     }
 
-    // Кейс 4.1.6 "Редактирование комментария к заявке в статусе "В работе" с последующим сохранением"
     @Test
+    @DisplayName("Кейс 4.1.6 \"Редактирование комментария к заявке в статусе \"В работе\" с последующим сохранением\"")
     public void shouldEditCommentInClaim() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -189,8 +191,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkCommentWasEdited(comment2);
     }
 
-    // Кейс 4.1.7 "Переведение заявки в статусе "В работе" в статус "Открыта" с заполнением поля Комментарий"
     @Test
+    @DisplayName("Кейс 4.1.7 \"Переведение заявки в статусе \"В работе\" в статус \"Открыта\" с заполнением поля Комментарий\"")
     public void shouldChangeStatusFromInProgressToOpened() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -215,8 +217,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkAddedCommentIsVisible(comment);
     }
 
-    // Кейс 4.1.8 "Переведение заявки в статусе "В работе" в статус "Выполнена" с заполнением поля Комментарий"
     @Test
+    @DisplayName("Кейс 4.1.8 \"Переведение заявки в статусе \"В работе\" в статус \"Выполнена\" с заполнением поля Комментарий\"")
     public void shouldChangeStatusFromInProgressToExecuted() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -240,8 +242,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkAddedCommentIsVisible(comment);
     }
 
-    // Кейс 4.1.9 "Переведение заявки в статусе "В работе" в статус "Выполнена" без заполнения поля Комментарий"
     @Test
+    @DisplayName("Кейс 4.1.9 \"Переведение заявки в статусе \"В работе\" в статус \"Выполнена\" без заполнения поля Комментарий\"")
     public void shouldNotChangeStatusFromInProgressToExecutedWithoutComment() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -261,8 +263,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkSnackIsVisible(snackEmptyField);
     }
 
-    // Кейс 4.1.10 "Переведение заявки в статусе "В работе" в статус "Выполнена" с заполнением поля Комментарий с последующей отменой"
     @Test
+    @DisplayName("Кейс 4.1.10 \"Переведение заявки в статусе \"В работе\" в статус \"Выполнена\" с заполнением поля Комментарий с последующей отменой\"")
     public void shouldNotChangeStatusFromInProgressToExecutedAfterCancelingComment() {
         mainScreenSteps.goToSectionClaimsFromMainMenu();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -287,8 +289,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkStatusInProgress();
     }
 
-    // Кейс 4.1.11 "Редактирование заявки в статусе "В работе""
     @Test
+    @DisplayName("Кейс 4.1.11 \"Редактирование заявки в статусе \"В работе\"\"")
     public void shouldNotEditClaimInProgress() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -306,8 +308,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkSnackIsVisible(snackCannotEditClaim);
     }
 
-    // Кейс 4.1.12 "Переход к экрану детального описания заявки в статусе "В работе" и возврат к списку заявок через стрелку Назад"
     @Test
+    @DisplayName("Кейс 4.1.12 \"Переход к экрану детального описания заявки в статусе \"В работе\" и возврат к списку заявок через стрелку Назад\"")
     public void shouldReturnToClaimsScreenFromScreenOfDetailedDescriptionClaim() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -325,8 +327,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
     }
 
-    // Кейс 4.2.1 "Переведение заявки в статусе "Открыта" в статус "В работе""
     @Test
+    @DisplayName("Кейс 4.2.1 \"Переведение заявки в статусе \"Открыта\" в статус \"В работе\"\"")
     public void shouldChangeStatusFromOpenedToInProgress() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -347,8 +349,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkStatusInProgress();
     }
 
-    // Кейс 4.2.2 "Переведение заявки в статусе "Открыта" в статус "Отменена""
     @Test
+    @DisplayName("Кейс 4.2.2 \"Переведение заявки в статусе \"Открыта\" в статус \"Отменена\"\"")
     public void shouldChangeStatusFromOpenedToCancelled() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -369,8 +371,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkStatusCanceled();
     }
 
-    // Кейс 4.3.1 "Изменение статуса заявки в статусе "Выполнена""
     @Test
+    @DisplayName("Кейс 4.3.1 \"Изменение статуса заявки в статусе \"Выполнена\"\"")
     public void shouldNotChangeStatusOfExecutedClaim() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -388,8 +390,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkSnackIsVisible(snackCannotEditStatusOfClaim);
     }
 
-    // Кейс 4.3.2 "Редактирование заявки в статусе "Выполнена""
     @Test
+    @DisplayName("Кейс 4.3.2 \"Редактирование заявки в статусе \"Выполнена\"\"")
     public void shouldNotEditExecutedClaim() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -407,8 +409,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkSnackIsVisible(snackCannotEditClaim);
     }
 
-    // Кейс 4.4.1 "Изменение статуса заявки в статусе "Отменена""
     @Test
+    @DisplayName("Кейс 4.4.1 \"Изменение статуса заявки в статусе \"Отменена\"\"")
     public void shouldNotChangeStatusOfCancelledClaim() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -426,8 +428,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkSnackIsVisible(snackCannotEditStatusOfClaim);
     }
 
-    // Кейс 4.4.2 "Редактирование заявки в статусе "Отменена""
     @Test
+    @DisplayName("Кейс 4.4.2 \"Редактирование заявки в статусе \"Отменена\"\"")
     public void shouldNotEditCancelledClaim() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -445,8 +447,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkSnackIsVisible(snackCannotEditClaim);
     }
 
-    // Кейс 4.5.1 "Редактирование заявки в статусе "Открыта""
     @Test
+    @DisplayName("Кейс 4.5.1 \"Редактирование заявки в статусе \"Открыта\"\"")
     public void shouldEditOpenedClaim() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -484,8 +486,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
                 dateClaimBefore, dateClaimAfter, timeClaimBefore, timeClaimAfter, descriptionClaimBefore, descriptionClaimAfter);
     }
 
-    // Кейс 4.5.2 "Редактирование заявки в статусе "Открыта" с последующей отменой"
     @Test
+    @DisplayName("Кейс 4.5.2 \"Редактирование заявки в статусе \"Открыта\" с последующей отменой\"")
     public void shouldNotEditOpenedClaimAfterCancelEditing() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -524,8 +526,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
                 dateClaimBefore, dateClaimAfter, timeClaimBefore, timeClaimAfter, descriptionClaimBefore, descriptionClaimAfter);
     }
 
-    // Кейс 4.6.4 "Фильтрация заявок без выбора статусов"
     @Test
+    @DisplayName("Кейс 4.6.4 \"Фильтрация заявок без выбора статусов\"")
     public void shouldShowEmptyScreenWhenAllStatusesUnchecked() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -537,8 +539,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         claimsScreenSteps.checkEmptyScreenIsDisplayed();
     }
 
-    // Кейс 4.6.5 "Фильтрация заявок по статусу с последующей отменой"
     @Test
+    @DisplayName("Кейс 4.6.5 \"Фильтрация заявок по статусу с последующей отменой\"")
     public void shouldNotFilterAfterCancelFiltering() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
@@ -560,8 +562,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
 
     }
 
-    // Кейс 4.8.3 "Создание новой заявки с темой, состоящей из 51 кириллического символа"
     @Test
+    @DisplayName("Кейс 4.8.3 \"Создание новой заявки с темой, состоящей из 51 кириллического символа\"")
     public void shouldNotCreateClaimWithTheme51CyrillicSymbols() {
         mainScreenSteps.clickOnCreateClaimButton();
         createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
@@ -570,8 +572,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         createClaimScreenSteps.compareNumberOfEnteredSymbolsAndSymbolsInTheField();
     }
 
-    // Кейс 4.8.6 "Создание новой заявки с темой, состоящей из пробела"
     @Test
+    @DisplayName("Кейс 4.8.6 \"Создание новой заявки с темой, состоящей из пробела\"")
     public void shouldNotCreateClaimWithThemeWhitespace() {
         mainScreenSteps.clickOnCreateClaimButton();
         createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
@@ -584,8 +586,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         createClaimScreenSteps.checkPopupIsVisible(ActivityTestRule.getActivity(), popupFillEmptyFields);
     }
 
-    // Кейс 4.8.8 "Создание новой заявки с вводом значения в поле Исполнитель не из выпадающего списка"
     @Test
+    @DisplayName("Кейс 4.8.8 \"Создание новой заявки с вводом значения в поле Исполнитель не из выпадающего списка\"")
     public void shouldNotCreateClaimWithExecutorNotFromDropdown() throws NoMatchingRootException {
         mainScreenSteps.clickOnCreateClaimButton();
         createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
@@ -597,8 +599,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         createClaimScreenSteps.checkPopupIsVisible(ActivityTestRule.getActivity(), popupChooseExecutorFromDropdown);
     }
 
-    // Кейс 4.8.9 "Создание новой заявки с выбором текущей даты и текущего времени"
     @Test
+    @DisplayName("Кейс 4.8.9 \"Создание новой заявки с выбором текущей даты и текущего времени\"")
     public void shouldNotCreateClaimWithCurrentTime() {
         mainScreenSteps.clickOnCreateClaimButton();
         createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
@@ -611,8 +613,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         createClaimScreenSteps.checkPopupIsVisible(ActivityTestRule.getActivity(), popupTimeForClaimShouldBeAtLeast1Hour);
     }
 
-    // Кейс 4.8.10 "Создание новой заявки с выбором текущей даты и прошедшего времени"
     @Test
+    @DisplayName("Кейс 4.8.10 \"Создание новой заявки с выбором текущей даты и прошедшего времени\"")
     public void shouldNotCreateClaimWithPastTime() {
         mainScreenSteps.clickOnCreateClaimButton();
         createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
@@ -622,11 +624,11 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         createClaimScreenSteps.fillTheFieldTimePastTime();
 
         createClaimScreenSteps.clickOnSaveButton();
-        createClaimScreenSteps.checkPopupIsVisible (ActivityTestRule.getActivity(), popupTimeForClaimShouldBeAtLeast1Hour);
+        createClaimScreenSteps.checkPopupIsVisible(ActivityTestRule.getActivity(), popupTimeForClaimShouldBeAtLeast1Hour);
     }
 
-    // Кейс 4.8.15 "Создание новой заявки с вводом несуществующего времени"
     @Test
+    @DisplayName("Кейс 4.8.15 \"Создание новой заявки с вводом несуществующего времени\"")
     public void shouldNotCreateClaimWithInvalidTime() {
         mainScreenSteps.clickOnCreateClaimButton();
         createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
@@ -635,8 +637,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         watchScreenSteps.checkValidationInvalidTimeIsDisplayed(ActivityTestRule.getActivity(), validationInvalidTime);
     }
 
-    // Кейс 4.8.18 "Создание новой заявки с описанием состоящим из пробела"
     @Test
+    @DisplayName("Кейс 4.8.18 \"Создание новой заявки с описанием состоящим из пробела\"")
     public void shouldNotCreateClaimWithDescriptionWhitespace() {
         mainScreenSteps.clickOnCreateClaimButton();
         createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
@@ -649,8 +651,8 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
         createClaimScreenSteps.checkPopupIsVisible(ActivityTestRule.getActivity(), popupFillEmptyFields);
     }
 
-    // Кейс 4.8.19 "Создание новой заявки с пустыми полями"
     @Test
+    @DisplayName("Кейс 4.8.19 \"Создание новой заявки с пустыми полями\"")
     public void shouldNotCreateClaimWithEmptyFields() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();

@@ -30,6 +30,7 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
 import androidx.annotation.NonNull;
 
+import io.qameta.allure.kotlin.Step;
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.elements.CalendarScreenElements;
 import ru.iteco.fhmandroid.ui.elements.CreateNewsScreenElements;
@@ -43,67 +44,67 @@ public class CreateNewsScreenSteps {
     CalendarScreenSteps calendarScreenSteps = new CalendarScreenSteps();
     WatchScreenSteps watchScreenSteps = new WatchScreenSteps();
 
-    // Проверка отображения экрана создания новости
+    @Step("Проверка отображения экрана создания новости")
     public void checkCreateNewsScreenIsDisplayed() {
         onView(isRoot()).perform(waitUntilShown(R.id.save_button, 3000));
         createNewsScreenElements.getCreateTitle().check(matches(isDisplayed()));
         createNewsScreenElements.getNewsTitle().check(matches(isDisplayed()));
     }
 
-    // Выбор категории из списка
+    @Step("Выбор категории из списка")
     public void chooseCategoryFromDropdown(@NonNull AppActivity activity, String category) {
         createNewsScreenElements.getCategory().perform(click());
         createNewsScreenElements.getCategory().perform(closeSoftKeyboard());
         onView(withText(category)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).perform(click());
     }
 
-    // Заполнение поля Категория
+    @Step("Заполнение поля Категория")
     public void fillTheFieldCategory(String category) {
         createNewsScreenElements.getCategory().perform(replaceText(category));
     }
 
-    // Заполнение поля Заголовок
+    @Step("Заполнение поля Заголовок")
     public void fillTheFieldHeader(String text) {
         createNewsScreenElements.getHeader().perform(replaceText(text));
     }
 
-    // Заполнение поля Дата публикации значением сегодняшнего дня
+    @Step("Заполнение поля Дата публикации значением сегодняшнего дня")
     public void fillTheFieldDateToday() {
         createNewsScreenElements.getPublicationDate().perform(click());
         calendarScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение поля Дата значением вчерашний день
+    @Step("Заполнение поля Дата значением вчерашний день")
     public void fillTheFieldDateYesterday() {
         createNewsScreenElements.getPublicationDate().perform(replaceText(dateYesterday()));
     }
 
-    // Заполнение поля Дата публикации значением завтрашний день
+    @Step("Заполнение поля Дата публикации значением завтрашний день")
     public void fillTheFieldDateTomorrow() {
         createNewsScreenElements.getPublicationDate().perform(replaceText(dateTomorrow()));
     }
 
-    // Заполнение поля Дата значением через неделю
+    @Step("Заполнение поля Дата значением через неделю")
     public void fillTheFieldDateInOneWeek() {
         createNewsScreenElements.getPublicationDate().perform(replaceText(dateInOneWeek()));
     }
 
-    // Заполнение поля Дата значением
+    @Step("Заполнение поля Дата значением")
     public void fillTheFieldDate(String date) {
         createNewsScreenElements.getPublicationDate().perform(replaceText(date));
     }
 
-    // Заполнение поля Дата публикации значением год назад
+    @Step("Заполнение поля Дата публикации значением год назад")
     public void fillTheFieldDateAYearAgo() {
         createNewsScreenElements.getPublicationDate().perform(replaceText(dateAYearAgo()));
     }
 
-    // Заполнение поля Дата публикации значением через год
+    @Step("Заполнение поля Дата публикации значением через год")
     public void fillTheFieldDateInOneYear() {
         createNewsScreenElements.getPublicationDate().perform(replaceText(dateInOneYear()));
     }
 
-    // Заполнение поля Время значением текущего времени
+    @Step("Заполнение поля Время значением текущего времени")
     public void fillTheFieldTimeCurrentTime() {
         createNewsScreenElements.getTime().perform(click());
         watchScreenSteps.clickOnOpenKeyboardButton();
@@ -112,7 +113,7 @@ public class CreateNewsScreenSteps {
         watchScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение поля Время значением времени на час вперед от текущего
+    @Step("Заполнение поля Время значением времени на час вперед от текущего")
     public void fillTheFieldTimeCurrentTimePlusOneHour() {
         createNewsScreenElements.getTime().perform(click());
         watchScreenSteps.clickOnOpenKeyboardButton();
@@ -121,7 +122,7 @@ public class CreateNewsScreenSteps {
         watchScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение поля Время значением времени на час назад от текущего
+    @Step("Заполнение поля Время значением времени на час назад от текущего")
     public void fillTheFieldTimeCurrentTimeMinusOneHour() {
         createNewsScreenElements.getTime().perform(click());
         watchScreenSteps.clickOnOpenKeyboardButton();
@@ -130,7 +131,7 @@ public class CreateNewsScreenSteps {
         watchScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение поля Время значением несуществующего времени
+    @Step("Заполнение поля Время значением несуществующего времени")
     public void fillTheFieldTimeInvalidTime() {
         createNewsScreenElements.getTime().perform(click());
         watchScreenSteps.clickOnOpenKeyboardButton();
@@ -139,38 +140,38 @@ public class CreateNewsScreenSteps {
         watchScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение поля Описание
+    @Step("Заполнение поля Описание")
     public void fillTheFieldDescription(String text) {
         createNewsScreenElements.getDescription().perform(replaceText(text));
     }
 
-    // Нажатие на тумблер Активна
+    @Step("Нажатие на тумблер Активна")
     public void clickOnSwitcher() {
         createNewsScreenElements.getSwitcher().perform(click());
     }
 
-    // Проверка, что тумблер стоит на Активна
+    @Step("Проверка, что тумблер стоит на Активна")
     public void checkSwitcherActive() {
         String status = DataHelper.Text.getText(onView(withId(R.id.switcher)));
         assertEquals("Активна", status);
     }
 
-    // Нажатие на кнопку Сохранить
+    @Step("Нажатие на кнопку Сохранить")
     public void clickOnSaveButton() {
         createNewsScreenElements.getSaveButton().perform(click());
     }
 
-    // Нажатие на кнопку Отмена
+    @Step("Нажатие на кнопку Отмена")
     public void clickOnCancelButton() {
         createNewsScreenElements.getCancelButton().perform(click());
     }
 
-    // Нажатие на кнопку ОК для подтверждения отмены создания новости
+    @Step("Нажатие на кнопку ОК для подтверждения отмены создания новости")
     public void clickOnOkExitButton() {
         createNewsScreenElements.getOkExitButton().perform(click());
     }
 
-    // Проверка отображения снэка с предупреждающим сообщением
+    @Step("Проверка отображения снэка с предупреждающим сообщением")
     public void checkSnackIsVisible(@NonNull AppActivity activity, String text) {
         onView(withText(text)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }

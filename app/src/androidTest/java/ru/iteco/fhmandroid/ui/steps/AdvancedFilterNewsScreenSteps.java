@@ -20,6 +20,7 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.Text.textWithCyrillicSymbol
 
 import androidx.annotation.NonNull;
 
+import io.qameta.allure.kotlin.Step;
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.elements.AdvancedFilterNewsScreenElements;
 import ru.iteco.fmhandroid.R;
@@ -30,40 +31,40 @@ public class AdvancedFilterNewsScreenSteps {
     AdvancedFilterNewsScreenElements advancedFilterNewsScreenElements = new AdvancedFilterNewsScreenElements();
     CalendarScreenSteps calendarScreenSteps = new CalendarScreenSteps();
 
-    // Проверка отображения экрана Фильтрация новостей (расширенная)
+    @Step("Проверка отображения экрана Фильтрация новостей (расширенная)")
     public void checkAdvancedFilterNewsScreenIsDisplayed() {
         advancedFilterNewsScreenElements.getFilterTitle().check(matches(isDisplayed()));
     }
 
-    // Выбор категории из выпадающего списка
+    @Step("Выбор категории из выпадающего списка")
     public void chooseCategory(@NonNull AppActivity activity, String category) {
         advancedFilterNewsScreenElements.getCategory().perform(click());
         advancedFilterNewsScreenElements.getCategory().perform(closeSoftKeyboard());
         onView(withText(category)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).perform(click());
     }
 
-    // Заполненение поля Категория значением не из выпадающего списка
+    @Step("Заполненение поля Категория значением не из выпадающего списка")
     public void fillTheFieldCategoryNotFromDropdown() {
         advancedFilterNewsScreenElements.getCategory().perform(replaceText(textWithCyrillicSymbols(10)));
     }
 
-    // Заполненение поля Категория значением, состоящим из пробела
+    @Step("Заполненение поля Категория значением, состоящим из пробела")
     public void fillTheFieldCategoryWhiteSpace() {
         advancedFilterNewsScreenElements.getCategory().perform(replaceText(" "));
     }
 
-    // Заполнение первой даты значением сегодняшнего дня
+    @Step("Заполнение первой даты значением сегодняшнего дня")
     public void fillTheStartDateToday() {
         advancedFilterNewsScreenElements.getDateStart().perform(click());
         calendarScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение первой даты значением завтрашнего дня
+    @Step("Заполнение первой даты значением завтрашнего дня")
     public void fillTheStartDateTomorrow() {
         advancedFilterNewsScreenElements.getDateStart().perform(replaceText(dateTomorrow()));
     }
 
-    // Заполнение первой даты значением год назад
+    @Step("Заполнение первой даты значением год назад")
     public void fillTheStartDateAYearAgo() {
         advancedFilterNewsScreenElements.getDateStart().perform(click());
         calendarScreenSteps.clickOnChooseYearButton();
@@ -71,75 +72,75 @@ public class AdvancedFilterNewsScreenSteps {
         calendarScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение первой даты с последующей отменой
+    @Step("Заполнение первой даты с последующей отменой")
     public void fillTheStartDateAndCancel() {
         advancedFilterNewsScreenElements.getDateStart().perform(click());
         calendarScreenSteps.clickOnCancelButton();
     }
 
-    // Заполнение второй даты значением сегодняшнего дня
+    @Step("Заполнение второй даты значением сегодняшнего дня")
     public void fillTheEndDateToday() {
         advancedFilterNewsScreenElements.getDateEnd().perform(click());
         calendarScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение первой даты значением вчерашнего дня
+    @Step("Заполнение первой даты значением вчерашнего дня")
     public void fillTheStartDateYesterday() {
         advancedFilterNewsScreenElements.getDateStart().perform(replaceText(dateYesterday()));
     }
 
-    // Заполнение второй даты значением вчерашнего дня
+    @Step("Заполнение второй даты значением вчерашнего дня")
     public void fillTheEndDateYesterday() {
         advancedFilterNewsScreenElements.getDateEnd().perform(replaceText(dateYesterday()));
     }
 
-    // Заполнение второй даты значением завтрашнего дня дня
+    @Step("Заполнение второй даты значением завтрашнего дня дня")
     public void fillTheEndDateTomorrow() {
         advancedFilterNewsScreenElements.getDateEnd().perform(replaceText(dateTomorrow()));
     }
 
-    // Заполнение второй даты значением через неделю
+    @Step("Заполнение второй даты значением через неделю")
     public void fillTheEndDateInOneWeek() {
         advancedFilterNewsScreenElements.getDateEnd().perform(replaceText(dateInOneWeek()));
     }
 
-    // Заполнение второй даты с последующей отменой
+    @Step("Заполнение второй даты с последующей отменой")
     public void fillTheEndDateAndCancel() {
         advancedFilterNewsScreenElements.getDateEnd().perform(click());
         calendarScreenSteps.clickOnCancelButton();
     }
 
-    // Нажатие на чек-бокс Активна
+    @Step("Нажатие на чек-бокс Активна")
     public void clickOnActiveCheckBox() {
         advancedFilterNewsScreenElements.getCheckBoxActive().perform(click());
     }
 
-    // Нажатие на чек-бокс Не активна
+    @Step("Нажатие на чек-бокс Не активна")
     public void clickOnInactiveCheckBox() {
         advancedFilterNewsScreenElements.getCheckBoxInactive().perform(click());
     }
 
-    // Нажатие на кнопку Фильтровать
+    @Step("Нажатие на кнопку Фильтровать")
     public void clickOnFilterButton() {
         advancedFilterNewsScreenElements.getFilterButton().perform(click());
     }
 
-    // Нажатие на кнопку Отмена
+    @Step("Нажатие на кнопку Отмена")
     public void clickOnCancelButton() {
         advancedFilterNewsScreenElements.getCancelButton().perform(click());
     }
 
-    // Проверка, что в поле первая дата отсутствует значение
+    @Step("Проверка, что в поле первая дата отсутствует значение")
     public void checkTheFieldStartDateIsEmpty() {
         startDateText().matches("");
     }
 
-    // Проверка, что в поле вторая дата отсутствует значение
+    @Step("Проверка, что в поле вторая дата отсутствует значение")
     public void checkTheFieldEndDateIsEmpty() {
         endDateText().matches("");
     }
 
-    // Проверка отображения поп-апа с предупреждающим сообщением
+    @Step("Проверка отображения поп-апа с предупреждающим сообщением")
     public void checkPopupIsVisible(@NonNull AppActivity activity, String text) {
         onView(withText(text)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
@@ -158,5 +159,4 @@ public class AdvancedFilterNewsScreenSteps {
     public String endDateText() {
         return DataHelper.Text.getText(onView(withId(R.id.news_item_publish_date_end_text_input_edit_text)));
     }
-
 }

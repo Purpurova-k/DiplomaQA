@@ -18,6 +18,7 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
 import androidx.annotation.NonNull;
 
+import io.qameta.allure.kotlin.Step;
 import ru.iteco.fhmandroid.ui.elements.EditClaimScreenElements;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
@@ -28,14 +29,14 @@ public class EditClaimScreenSteps {
     CalendarScreenSteps calendarScreenSteps = new CalendarScreenSteps();
     WatchScreenSteps watchScreenSteps = new WatchScreenSteps();
 
-    // Проверка отображения экрана редактирования заявки
+    @Step("Проверка отображения экрана редактирования заявки")
     public void checkEditClaimScreenIsDisplayed() {
         onView(isRoot()).perform(waitUntilShown(R.id.custom_app_bar_title_text_view, 3000));
         editClaimScreenElements.getEditTitle().check(matches(isDisplayed()));
         editClaimScreenElements.getClaimsTitle().check(matches(isDisplayed()));
     }
 
-    // Заполнение полей новыми валидными данными
+    @Step("Заполнение полей новыми валидными данными")
     public void fillTheFieldsWithNewValidData() {
         editClaimScreenElements.getTheme().perform(replaceText(textWithCyrillicSymbols(20)));
         editClaimScreenElements.getDate().perform(click());
@@ -45,7 +46,7 @@ public class EditClaimScreenSteps {
         editClaimScreenElements.getDescription().perform(replaceText(textWithCyrillicSymbols(25)));
     }
 
-    // Выбор исполнителя из списка
+    @Step("Выбор исполнителя из списка")
     public void chooseExecutorFromDropdown(@NonNull AppActivity activity, String executor) {
         editClaimScreenElements.getExecutor().perform(click());
         onView(withText(executor))
@@ -53,22 +54,22 @@ public class EditClaimScreenSteps {
         editClaimScreenElements.getExecutor().perform(closeSoftKeyboard());
     }
 
-    // Нажатие на кнопку Сохранить
+    @Step("Нажатие на кнопку Сохранить")
     public void clickOnSaveButton() {
         editClaimScreenElements.getSaveButton().perform(click());
     }
 
-    // Нажатие на кнопку Отмена
+    @Step("Нажатие на кнопку Отмена")
     public void clickOnCancelButton() {
         editClaimScreenElements.getCancelButton().perform(click());
     }
 
-    // Нажатие на кнопку ОК для подтверждения отмены редактирования
+    @Step("Нажатие на кнопку ОК для подтверждения отмены редактирования")
     public void clickOnOkExitButton() {
         editClaimScreenElements.getOkExitButton().perform(click());
     }
 
-    // Сравнение данных до редактирование и после
+    @Step("Сравнение данных до редактирование и после")
     public void compareDataBeforeEditingAndAfter(String themeClaimBefore, String themeClaimAfter, String executorClaimBefore,
                                                  String executorClaimAfter, String dateClaimBefore, String dateClaimAfter,
                                                  String timeClaimBefore, String timeClaimAfter, String descriptionClaimBefore,
@@ -80,11 +81,11 @@ public class EditClaimScreenSteps {
         assertNotEquals(descriptionClaimBefore, descriptionClaimAfter);
     }
 
-    // Сравнение данных до и после при отмененном редактировании
+    @Step("Сравнение данных до и после при отмененном редактировании")
     public void compareDataBeforeAndAfterWhenCancelledEditing(String themeClaimBefore, String themeClaimAfter, String executorClaimBefore,
-                                                 String executorClaimAfter, String dateClaimBefore, String dateClaimAfter,
-                                                 String timeClaimBefore, String timeClaimAfter, String descriptionClaimBefore,
-                                                 String descriptionClaimAfter) {
+                                                              String executorClaimAfter, String dateClaimBefore, String dateClaimAfter,
+                                                              String timeClaimBefore, String timeClaimAfter, String descriptionClaimBefore,
+                                                              String descriptionClaimAfter) {
         assertEquals(themeClaimBefore, themeClaimAfter);
         assertEquals(executorClaimBefore, executorClaimAfter);
         assertEquals(dateClaimBefore, dateClaimAfter);

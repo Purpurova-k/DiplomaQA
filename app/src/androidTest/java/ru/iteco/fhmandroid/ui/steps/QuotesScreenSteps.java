@@ -6,23 +6,24 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 
 import static org.junit.Assert.assertEquals;
 
+import io.qameta.allure.kotlin.Step;
 import ru.iteco.fhmandroid.ui.elements.QuotesScreenElements;
 
 public class QuotesScreenSteps {
 
     QuotesScreenElements quotesScreenElements = new QuotesScreenElements();
 
-    // Проверка отображения экрана Цитаты
+    @Step("Проверка отображения экрана Цитаты")
     public void checkQuotesScreenIsDisplayed() {
         quotesScreenElements.getQuotesSectionTitle().check(matches(isDisplayed()));
     }
 
-    // Нажатие на кнопку свернуть/развернуть рядом с цитатой
+    @Step("Нажатие на кнопку свернуть/развернуть рядом с цитатой")
     public void expandQuoteDescription() {
         quotesScreenElements.getExpandQuoteDescriptionButton().perform(click());
     }
 
-    // Проверка текста в названии и описании цитаты
+    @Step("Проверка текста в названии и описании цитаты")
     public void checkTitleAndDescriptionOfQuote(String title, String description) {
         String titleActual = quotesScreenElements.titleText(0);
         assertEquals(title, titleActual);

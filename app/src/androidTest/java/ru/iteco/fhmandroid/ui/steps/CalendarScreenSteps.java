@@ -11,48 +11,49 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.currentYearPlusOne
 import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.settingDate;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.DateTime.todayDay;
 
+import io.qameta.allure.kotlin.Step;
 import ru.iteco.fhmandroid.ui.elements.CalendarScreenElements;
 
 public class CalendarScreenSteps {
 
     CalendarScreenElements calendarScreenElements = new CalendarScreenElements();
 
-    // Нажатие на кнопку ОК
+    @Step("Нажатие на кнопку ОК")
     public void clickOnOkButton() {
         calendarScreenElements.getOkButton().perform(click());
     }
 
-    // Нажатие на кнопку Отмена
+    @Step("Нажатие на кнопку Отмена")
     public void clickOnCancelButton() {
         calendarScreenElements.getCancelButton().perform(click());
     }
 
-    // Нажатие на кнопку выбора года
+    @Step("Нажатие на кнопку выбора года")
     public void clickOnChooseYearButton() {
         calendarScreenElements.getChooseYearButton().perform(click());
     }
 
-    // Нажатие на следующий год
+    @Step("Нажатие на следующий год")
     public void chooseNextYear() {
         onView(withText(String.valueOf(currentYearPlusOneYear()))).perform(click());
     }
 
-    // Нажатие на предыдущий год
+    @Step("Нажатие на предыдущий год")
     public void choosePreviousYear() {
         onView(withText(String.valueOf(currentYearMinusOneYear()))).perform(click());
     }
 
-    // Нажатие на кнопку Следующий месяц
+    @Step("Нажатие на кнопку Следующий месяц")
     public void clickOnNextMonthButton() {
         calendarScreenElements.getNextMonthButton().perform(click());
     }
 
-    // Нажатие на кнопку Предыдущий месяц
+    @Step("Нажатие на кнопку Предыдущий месяц")
     public void clickOnPreviousMonthButton() {
         calendarScreenElements.getPreviousMonthButton().perform(click());
     }
 
-    // Установка даты через месяц - step не нужен оставить коммит
+    // Установка даты через месяц
     public void setDateInMonth() {
         settingDate(currentYear(), currentMonthPlusOneMonth(), todayDay());
     }

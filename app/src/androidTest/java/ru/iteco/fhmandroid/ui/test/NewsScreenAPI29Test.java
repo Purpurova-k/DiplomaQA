@@ -1,3 +1,5 @@
+// Эти тесты необходимо выполнять на устройстве с Android 10 (API 29)
+
 package ru.iteco.fhmandroid.ui.test;
 
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Rand.randomNewsCategory;
@@ -23,6 +25,7 @@ import androidx.test.filters.LargeTest;
 
 import org.junit.Test;
 
+import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fhmandroid.ui.custom.BaseAndroidTest;
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.steps.AdvancedFilterNewsScreenSteps;
@@ -34,7 +37,6 @@ import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.NewsScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.WatchScreenSteps;
 
-// Эти тесты необходимо выполнять на устройстве с Android 10 (API 29)
 
 @LargeTest
 public class NewsScreenAPI29Test extends BaseAndroidTest {
@@ -48,9 +50,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
     EditNewsScreenSteps editNewsScreenSteps = new EditNewsScreenSteps();
     WatchScreenSteps watchScreenSteps = new WatchScreenSteps();
 
-
-    // Кейс 5.1.1 "Сортировка новостей на экране Новости"
     @Test
+    @DisplayName("Кейс 5.1.1 \"Сортировка новостей на экране Новости\"")
     public void shouldSortNewsOnScreenNews() {
         mainScreenSteps.goToSectionNewsFromMainMenu();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -80,8 +81,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
                 lastNewsNameAfterSorting, lastNewsDateAfterSorting);
     }
 
-    // Кейс 5.1.2 "Фильтрация новостей на экране Новости по случайно выбранной категории и по сегодняшней дате"
     @Test
+    @DisplayName("Кейс 5.1.2 \"Фильтрация новостей на экране Новости по случайно выбранной категории и по сегодняшней дате\"")
     public void shouldFilterNewsCategoryAnnouncementOnNewsScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -110,8 +111,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         newsScreenSteps.compareDataOfFilteredNewsAndDataForFiltering(filterName, filterDate, filteredNewsName, filteredNewsDate);
     }
 
-    // Кейс 5.1.3 "Просмотр описания новости на экране Новости"
     @Test
+    @DisplayName("Кейс 5.1.3 \"Просмотр описания новости на экране Новости\"")
     public void shouldCollapseAndExpandNewsDescription() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -120,8 +121,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         newsScreenSteps.checkTextOfNewsDescriptionIsVisible(0);
     }
 
-    // Кейс 5.2.1 "Просмотр описания новости в разделе Панель управления новостей"
     @Test
+    @DisplayName("Кейс 5.2.1 \"Просмотр описания новости в разделе Панель управления новостей\"")
     public void shouldCollapseAndExpandNewsDescriptionOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -132,8 +133,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkTextOfNewsDescriptionIsVisible(0);
     }
 
-    // Кейс 5.2.4 "Сортировка новостей в разделе Панель управления новостей"
     @Test
+    @DisplayName("Кейс 5.2.4 \"Сортировка новостей в разделе Панель управления новостей\"")
     public void shouldSortNewsOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -166,8 +167,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
                 lastNewsNameAfterSorting, lastNewsDateAfterSorting);
     }
 
-    // Кейс 5.3.1 "Фильтрация новостей в разделе Панель управления новостей по категории Объявление"
     @Test
+    @DisplayName("Кейс 5.3.1 \"Фильтрация новостей в разделе Панель управления новостей по категории Объявление\"")
     public void shouldFilterNewsCategoryAnnouncementOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -190,8 +191,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.compareCategoryInFilterAndFilteredNews(categoryFilter, categoryNews);
     }
 
-    // Кейс 5.3.2 "Фильтрация новостей в разделе Панель управления новостей по категории Профсоюз"
     @Test
+    @DisplayName("Кейс 5.3.2 \"Фильтрация новостей в разделе Панель управления новостей по категории Профсоюз\"")
     public void shouldFilterNewsCategoryUnionOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -214,8 +215,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.compareCategoryInFilterAndFilteredNews(categoryFilter, categoryNews);
     }
 
-    // Кейс 5.3.3 "Фильтрация новостей в разделе Панель управления новостей по категории Праздник"
     @Test
+    @DisplayName("Кейс 5.3.3 \"Фильтрация новостей в разделе Панель управления новостей по категории Праздник\"")
     public void shouldFilterNewsCategoryHolidayOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -238,8 +239,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.compareCategoryInFilterAndFilteredNews(categoryFilter, categoryNews);
     }
 
-    // Кейс 5.3.4 "Фильтрация новостей в разделе Панель управления новостей по категории Массаж"
     @Test
+    @DisplayName("Кейс 5.3.4 \"Фильтрация новостей в разделе Панель управления новостей по категории Массаж\"")
     public void shouldFilterNewsCategoryMassageOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -262,8 +263,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.compareCategoryInFilterAndFilteredNews(categoryFilter, categoryNews);
     }
 
-    // Кейс 5.3.5 "Фильтрация новостей в разделе Панель управления новостей по категории Благодарность"
     @Test
+    @DisplayName("Кейс 5.3.5 \"Фильтрация новостей в разделе Панель управления новостей по категории Благодарность\"")
     public void shouldFilterNewsCategoryGratitudeOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -286,8 +287,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.compareCategoryInFilterAndFilteredNews(categoryFilter, categoryNews);
     }
 
-    // Кейс 5.3.6 "Фильтрация новостей в разделе Панель управления новостей по категории Нужна помощь"
     @Test
+    @DisplayName("Кейс 5.3.6 \"Фильтрация новостей в разделе Панель управления новостей по категории Нужна помощь\"")
     public void shouldFilterNewsCategoryNeedHelpOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -310,8 +311,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.compareCategoryInFilterAndFilteredNews(categoryFilter, categoryNews);
     }
 
-    // Кейс 5.3.7 "Фильтрация новостей в разделе Панель управления новостей с последующей отменой"
     @Test
+    @DisplayName("Кейс 5.3.7 \"Фильтрация новостей в разделе Панель управления новостей с последующей отменой\"")
     public void shouldNotFilterNewsAfterCancelFilteringOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -337,8 +338,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
                 nameTwoBefore, nameTwoAfter, nameThreeBefore, nameThreeAfter);
     }
 
-    // Кейс 5.3.8 "Фильтрация активных новостей в разделе Панель управления новостей"
     @Test
+    @DisplayName("Кейс 5.3.8 \"Фильтрация активных новостей в разделе Панель управления новостей\"")
     public void shouldFilterActiveNewsOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -360,8 +361,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkStatusIsActive(0);
     }
 
-    // Кейс 5.3.9 "Фильтрация неактивных новостей в разделе Панель управления новостей"
     @Test
+    @DisplayName("Кейс 5.3.9 \"Фильтрация неактивных новостей в разделе Панель управления новостей\"")
     public void shouldFilterInactiveNewsOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -387,8 +388,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkStatusIsInactive(0);
     }
 
-    // Кейс 5.3.10 "Фильтрация новостей в разделе Панель управления новостей с неактивными чек-боксами рядом с Активна и Не активна"
     @Test
+    @DisplayName("Кейс 5.3.10 \"Фильтрация новостей в разделе Панель управления новостей с неактивными чек-боксами рядом с Активна и Не активна\"")
     public void shouldShowEmptyScreenWhenAllStatusesUnchecked() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -405,8 +406,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkEmptyScreenIsDisplayed();
     }
 
-    // Кейс 5.3.11 "Выбор даты в фильтрации новостей в разделе Панель управления новостей с последующей отменой"
     @Test
+    @DisplayName("Кейс 5.3.11 \"Выбор даты в фильтрации новостей в разделе Панель управления новостей с последующей отменой\"")
     public void shouldNotFillTheFieldsDateAfterCancel() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -425,8 +426,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         advancedFilterNewsScreenSteps.checkTheFieldEndDateIsEmpty();
     }
 
-    // Кейс 5.4.1 "Фильтрация новостей в разделе Панель управления новостей с вводом значения в поле Категория не из выпадающего списка"
     @Test
+    @DisplayName("Кейс 5.4.1 \"Фильтрация новостей в разделе Панель управления новостей с вводом значения в поле Категория не из выпадающего списка\"")
     public void shouldNotFilterNewsWithCategoryNotFromDropdown() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -441,8 +442,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         advancedFilterNewsScreenSteps.checkPopupIsVisible(ActivityTestRule.getActivity(), popupChooseCategoryFromDropdown);
     }
 
-    // Кейс 5.4.2 "Фильтрация новостей в разделе Панель управления новостей с вводом пробела в поле Категория"
     @Test
+    @DisplayName("Кейс 5.4.2 \"Фильтрация новостей в разделе Панель управления новостей с вводом пробела в поле Категория\"")
     public void shouldFilterNewsWithCategoryWhiteSpace() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -466,8 +467,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
                 nameTwoBefore, nameTwoAfter, nameThreeBefore, nameThreeAfter);
     }
 
-    // Кейс 5.4.3 "Фильтрация новостей в разделе Панель управления новостей с выбором даты с сегодняшнего дня и на неделю вперед"
     @Test
+    @DisplayName("Кейс 5.4.3 \"Фильтрация новостей в разделе Панель управления новостей с выбором даты с сегодняшнего дня и на неделю вперед\"")
     public void shouldFilterNewsWithStartDateTodayAndEndDateInOneWeek() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -494,8 +495,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkDataOfFilteredNewsByDate(publicationDateFirstNews, date1, publicationDateLastNews, date2);
     }
 
-    // Кейс 5.4.4 "Фильтрация новостей в разделе Панель управления новостей с выбором даты с завтрашнего дня и до вчерашнего дня"
     @Test
+    @DisplayName("Кейс 5.4.4 \"Фильтрация новостей в разделе Панель управления новостей с выбором даты с завтрашнего дня и до вчерашнего дня\"")
     public void shouldNotFilterNewsWithStartDateTomorrowAndEndDateYesterday() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -511,8 +512,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         advancedFilterNewsScreenSteps.checkPopupIsVisible(ActivityTestRule.getActivity(), popupWrongPeriod);
     }
 
-    // Кейс 5.4.5 "Фильтрация новостей в разделе Панель управления новостей с выбором даты прошлого года"
     @Test
+    @DisplayName("Кейс 5.4.5 \"Фильтрация новостей в разделе Панель управления новостей с выбором даты прошлого года\"")
     public void shouldFilterNewsWithStartDateAYearAgoAndEndDateToday() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -539,8 +540,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkDataOfFilteredNewsByDate(publicationDateFirstNews, date1, publicationDateLastNews, date2);
     }
 
-    // Кейс 5.4.6 "Фильтрация новостей в разделе Панель управления новостей с выбором второй даты вчерашний день"
     @Test
+    @DisplayName("Кейс 5.4.6 \"Фильтрация новостей в разделе Панель управления новостей с выбором второй даты вчерашний день\"")
     public void shouldFilterNewsWithEndDateYesterday() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -563,8 +564,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkDataOfFilteredNewsByDateOneDate(publicationDateFirstNews, date);
     }
 
-    // Кейс 5.4.7 "Фильтрация новостей в разделе Панель управления новостей с выбором второй даты сегодняшний день"
     @Test
+    @DisplayName("Кейс 5.4.7 \"Фильтрация новостей в разделе Панель управления новостей с выбором второй даты сегодняшний день\"")
     public void shouldFilterNewsWithEndDateToday() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -587,8 +588,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkDataOfFilteredNewsByDateOneDate(publicationDateFirstNews, date);
     }
 
-    // Кейс 5.4.8 "Фильтрация новостей в разделе Панель управления новостей с выбором второй даты завтрашний день"
     @Test
+    @DisplayName("Кейс 5.4.8 \"Фильтрация новостей в разделе Панель управления новостей с выбором второй даты завтрашний день\"")
     public void shouldFilterNewsWithEndDateTomorrow() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -611,8 +612,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkDataOfFilteredNewsByDateOneDate(publicationDateFirstNews, date);
     }
 
-    // Кейс 5.4.9 "Фильтрация новостей в разделе Панель управления новостей с выбором первой даты вчерашний день"
     @Test
+    @DisplayName("Кейс 5.4.9 \"Фильтрация новостей в разделе Панель управления новостей с выбором первой даты вчерашний день\"")
     public void shouldFilterNewsWithStartDateYesterday() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -636,8 +637,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkDataOfFilteredNewsByDateOneDate(publicationDateLastNews, date);
     }
 
-    // Кейс 5.4.10 "Фильтрация новостей в разделе Панель управления новостей с выбором первой даты сегодняшний день"
     @Test
+    @DisplayName("Кейс 5.4.10 \"Фильтрация новостей в разделе Панель управления новостей с выбором первой даты сегодняшний день\"")
     public void shouldFilterNewsWithStartDateToday() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -661,8 +662,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkDataOfFilteredNewsByDateOneDate(publicationDateLastNews, date);
     }
 
-    // Кейс 5.4.11 "Фильтрация новостей в разделе Панель управления новостей с выбором первой даты завтрашний день"
     @Test
+    @DisplayName("Кейс 5.4.11 \"Фильтрация новостей в разделе Панель управления новостей с выбором первой даты завтрашний день\"")
     public void shouldFilterNewsWithStartDateTomorrow() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -689,8 +690,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkDataOfFilteredNewsByDateOneDate(publicationDateLastNews, date);
     }
 
-    // Кейс 5.5.1 "Редактирование новости в разделе Панель управление новостей с выбором категории из выпадающего списка"
     @Test
+    @DisplayName("Кейс 5.5.1 \"Редактирование новости в разделе Панель управление новостей с выбором категории из выпадающего списка\"")
     public void shouldEditNewsWithCategoryFromDropdown() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -746,8 +747,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
                 time, editedTime, description, editedDescription, category, editedCategory);
     }
 
-    // Кейс 5.5.2 "Редактирование новости в разделе Панель управление новостей с последующей отменой"
     @Test
+    @DisplayName("Кейс 5.5.2 \"Редактирование новости в разделе Панель управление новостей с последующей отменой\"")
     public void shouldNotEditNewsAfterCancelEditing() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -786,8 +787,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
                 timeBefore, timeAfter, descriptionBefore, descriptionAfter, categoryBefore, categoryAfter);
     }
 
-    // Кейс 5.5.3 "Редактирование неактивной новости в разделе Панель управление новостей с переключением новости на активную"
     @Test
+    @DisplayName("Кейс 5.5.3 \"Редактирование неактивной новости в разделе Панель управление новостей с переключением новости на активную\"")
     public void shouldEditActiveNewsToInactive() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -815,8 +816,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkNewsStatusEdited(descriptionFirstNewsBefore, descriptionFirstNewsAfter);
     }
 
-    // Кейс 5.5.4 "Редактирование активной новости в разделе Панель управление новостей с переключением новости на неактивную"
     @Test
+    @DisplayName("Кейс 5.5.4 \"Редактирование активной новости в разделе Панель управление новостей с переключением новости на неактивную\"")
     public void shouldEditInactiveNewsToActive() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -844,8 +845,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkNewsStatusEdited(descriptionFirstNewsBefore, descriptionFirstNewsAfter);
     }
 
-    // Кейс 5.5.5 "Редактирование активной новости в разделе Панель управление новостей с выбором категории не из выпадающего списка"
     @Test
+    @DisplayName("Кейс 5.5.5 \"Редактирование активной новости в разделе Панель управление новостей с выбором категории не из выпадающего списка\"")
     public void shouldNotEditNewsWithCategoryNotFromDropdown() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -861,8 +862,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         editNewsScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackChooseCategoryFromDropdown);
     }
 
-    // Кейс 5.6.1 "Добавление новой новости в разделе Панель управления новостей  с валидными данными и с последующим сохранением"
     @Test
+    @DisplayName("Кейс 5.6.1 \"Добавление новой новости в разделе Панель управления новостей  с валидными данными и с последующим сохранением\"")
     public void shouldCreateNewsWithValidData() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -899,8 +900,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
                 publicationDateFound, descriptionCreated, descriptionFound);
     }
 
-    // Кейс 5.6.2 "Добавление новой новости в разделе Панель управления новостей с последующей отменой"
     @Test
+    @DisplayName("Кейс 5.6.2 \"Добавление новой новости в разделе Панель управления новостей с последующей отменой\"")
     public void shouldNotCreateNewsAfterCancellingCreatingNews() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -932,8 +933,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
                 descriptionBefore, descriptionAfter);
     }
 
-    // Кейс 5.7.1 "Добавление новой новости в разделе Панель управления новостей с пустыми полями"
     @Test
+    @DisplayName("Кейс 5.7.1 \"Добавление новой новости в разделе Панель управления новостей с пустыми полями\"")
     public void shouldNotCreateNewsWithEmptyFields() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -947,8 +948,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         createNewsScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackFillEmptyFields);
     }
 
-    // Кейс 5.7.2 "Добавление новой новости в разделе Панель управления новостей с вводом значения в поле Категория не из выпадающего списка"
     @Test
+    @DisplayName("Кейс 5.7.2 \"Добавление новой новости в разделе Панель управления новостей с вводом значения в поле Категория не из выпадающего списка\"")
     public void shouldNotCreateNewsWithCategoryNotFromDropdown() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -968,8 +969,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         createNewsScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), snackChooseCategoryFromDropdown);
     }
 
-    // Кейс 5.7.4 "Добавление новой новости в разделе Панель управления новостей с выбором завтрашней даты публикации"
     @Test
+    @DisplayName("Кейс 5.7.4 \"Добавление новой новости в разделе Панель управления новостей с выбором завтрашней даты публикации\"")
     public void shouldCreateNewsWithDateTomorrow() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -1006,8 +1007,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
                 publicationDateFound, descriptionCreated, descriptionFound);
     }
 
-    // Кейс 5.7.5 "Добавление новой новости в разделе Панель управления новостей с выбором сегодняшней даты публикации и прошедшего времени"
     @Test
+    @DisplayName("Кейс 5.7.5 \"Добавление новой новости в разделе Панель управления новостей с выбором сегодняшней даты публикации и прошедшего времени\"")
     public void shouldNotCreateNewsWithPastTime() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -1026,8 +1027,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         createNewsScreenSteps.checkSnackIsVisible(ActivityTestRule.getActivity(), popupWrongTimeForPublicationNews);
     }
 
-    // Кейс 5.7.6 "Добавление новой новости в разделе Панель управления новостей с выбором несуществующего времени"
     @Test
+    @DisplayName("Кейс 5.7.6 \"Добавление новой новости в разделе Панель управления новостей с выбором несуществующего времени\"")
     public void shouldNotCreateNewsWithWithInvalidTime() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -1041,8 +1042,8 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         watchScreenSteps.checkValidationInvalidTimeIsDisplayed(ActivityTestRule.getActivity(), validationInvalidTime);
     }
 
-    // Кейс 5.7.7 "Добавление новой новости в разделе Панель управления новостей с тапом на чек-бокс "Активна""
     @Test
+    @DisplayName("Кейс 5.7.7 \"Добавление новой новости в разделе Панель управления новостей с тапом на чек-бокс \"Активна\"\"")
     public void shouldNotCreateInactiveNews() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();

@@ -8,6 +8,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 
 import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
+import io.qameta.allure.kotlin.Step;
 import ru.iteco.fhmandroid.ui.elements.FilterClaimsScreenElements;
 import ru.iteco.fmhandroid.R;
 
@@ -15,25 +16,25 @@ public class FilterClaimsScreenSteps {
 
     FilterClaimsScreenElements filterClaimsScreenElements = new FilterClaimsScreenElements();
 
-    // Проверка отображения экрана Фильтрация заявок
+    @Step("Проверка отображения экрана Фильтрация заявок")
     public void checkFilterClaimsScreenIsDisplayed() {
         onView(isRoot()).perform(waitUntilShown(R.id.claim_filter_dialog_title, 3000));
         filterClaimsScreenElements.getFilterTitle().check(matches(isDisplayed()));
     }
 
-    // Фильтрация заявок по категории "В работе"
+    @Step("Фильтрация заявок по категории \"В работе\"")
     public void filterClaimsInProgress() {
         filterClaimsScreenElements.getCheckBoxOpened().perform(click());
         filterClaimsScreenElements.getOkButton().perform(click());
     }
 
-    // Фильтрация заявок по категории "Открыта"
+    @Step("Фильтрация заявок по категории \"Открыта\"")
     public void filterClaimsOpened() {
         filterClaimsScreenElements.getCheckBoxInProgress().perform(click());
         filterClaimsScreenElements.getOkButton().perform(click());
     }
 
-    // Фильтрация заявок по категории "Выполнена"
+    @Step("Фильтрация заявок по категории \"Выполнена\"")
     public void filterClaimsExecuted() {
         filterClaimsScreenElements.getCheckBoxOpened().perform(click());
         filterClaimsScreenElements.getCheckBoxInProgress().perform(click());
@@ -41,7 +42,7 @@ public class FilterClaimsScreenSteps {
         filterClaimsScreenElements.getOkButton().perform(click());
     }
 
-    // Фильтрация заявок по категории "Отменена"
+    @Step("Фильтрация заявок по категории \"Отменена\"")
     public void filterClaimsCancelled() {
         filterClaimsScreenElements.getCheckBoxOpened().perform(click());
         filterClaimsScreenElements.getCheckBoxInProgress().perform(click());
@@ -49,14 +50,14 @@ public class FilterClaimsScreenSteps {
         filterClaimsScreenElements.getOkButton().perform(click());
     }
 
-    // Сделать все чек-боксы статусов неактивными
+    @Step("Сделать все чек-боксы статусов неактивными")
     public void uncheckAllStatuses() {
         filterClaimsScreenElements.getCheckBoxOpened().perform(click());
         filterClaimsScreenElements.getCheckBoxInProgress().perform(click());
         filterClaimsScreenElements.getOkButton().perform(click());
     }
 
-    // Нажатие на кнопку Отмена
+    @Step("Нажатие на кнопку Отмена")
     public void clickOnCancelButton() {
         filterClaimsScreenElements.getCancelButton().perform(click());
     }

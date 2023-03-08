@@ -15,6 +15,7 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
 import androidx.annotation.NonNull;
 
+import io.qameta.allure.kotlin.Step;
 import ru.iteco.fhmandroid.ui.elements.CommentClaimScreenElements;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
@@ -23,7 +24,7 @@ public class CommentClaimScreenSteps {
 
     CommentClaimScreenElements commentClaimScreenElements = new CommentClaimScreenElements();
 
-    // Проверка отображения экрана добавления комментария к заявке
+    @Step("Проверка отображения экрана добавления комментария к заявке")
     public void checkCommentClaimScreenIsDisplayed() {
         onView(isRoot()).perform(waitUntilShown(R.id.comment_text_input_layout, 3000));
         commentClaimScreenElements.getCommentField().check(matches(isDisplayed()));
@@ -31,24 +32,24 @@ public class CommentClaimScreenSteps {
         commentClaimScreenElements.getCancelButton().check(matches(isDisplayed()));
     }
 
-    // Заполнение значением поля комментарий с последующим сохранением
+    @Step("Заполнение значением поля комментарий с последующим сохранением")
     public void fillTheFieldCommentAndSave(String comment) {
         commentClaimScreenElements.getCommentField().perform(replaceText(comment));
         commentClaimScreenElements.getSaveButton().perform(click());
     }
 
-    // Заполнение значением поля комментарий с последующей отменой
+    @Step("Заполнение значением поля комментарий с последующей отменой")
     public void fillTheFieldCommentAndCancel(String comment) {
         commentClaimScreenElements.getCommentField().perform(replaceText(comment));
         commentClaimScreenElements.getCancelButton().perform(click());
     }
 
-    // Нажатие на кнопку Сохранить без заполнения значением поля комментарий
+    @Step("Нажатие на кнопку Сохранить без заполнения значением поля комментарий")
     public void clickSaveButtonWithoutComment() {
         commentClaimScreenElements.getSaveButton().perform(click());
     }
 
-    // Проверка отображения снэка с ошибкой "Поле не может быть пустым"
+    @Step("Проверка отображения снэка с ошибкой \"Поле не может быть пустым\"")
     public void checkSnackIsVisible(@NonNull AppActivity activity, String text) {
         onView(withText(text)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }

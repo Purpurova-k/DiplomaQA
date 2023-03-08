@@ -1,3 +1,5 @@
+// Эти тесты необходимо выполнять на устройстве с Android 13 (API 33)
+
 package ru.iteco.fhmandroid.ui.test;
 
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Rand.randomNewsCategory;
@@ -5,12 +7,12 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.createNewsPublicationInOneY
 
 import org.junit.Test;
 
+import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fhmandroid.ui.custom.BaseAndroidTest;
 import ru.iteco.fhmandroid.ui.steps.ControlPanelScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.NewsScreenSteps;
 
-// Эти тесты необходимо выполнять на устройстве с Android 13 (API 33)
 
 public class NewsScreenAPI33Test extends BaseAndroidTest {
 
@@ -18,8 +20,8 @@ public class NewsScreenAPI33Test extends BaseAndroidTest {
     NewsScreenSteps newsScreenSteps = new NewsScreenSteps();
     ControlPanelScreenSteps controlPanelScreenSteps = new ControlPanelScreenSteps();
 
-    // Кейс 5.2.2 "Удаление новости в разделе Панель управления новостей"
     @Test
+    @DisplayName("Кейс 5.2.2 \"Удаление новости в разделе Панель управления новостей\"")
     public void shouldDeleteNewsOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
@@ -48,8 +50,8 @@ public class NewsScreenAPI33Test extends BaseAndroidTest {
                 publicationDateAfter, creationDateBefore, creationDateAfter, descriptionBefore, descriptionAfter);
     }
 
-    // Кейс 5.2.3 "Удаление новости в разделе Панель управления новостей с последующей отменой"
     @Test
+    @DisplayName("Кейс 5.2.3 \"Удаление новости в разделе Панель управления новостей с последующей отменой\"")
     public void shouldNotDeleteNewsAfterCancelingDeletingOnControlPanelScreen() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();

@@ -15,10 +15,9 @@ import static org.hamcrest.core.IsNot.not;
 
 import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
-import android.os.SystemClock;
-
 import androidx.annotation.NonNull;
 
+import io.qameta.allure.kotlin.Step;
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.elements.FilterNewsScreenElements;
 import ru.iteco.fmhandroid.R;
@@ -29,32 +28,32 @@ public class FilterNewsScreenSteps {
     FilterNewsScreenElements filterNewsScreenElements = new FilterNewsScreenElements();
     CalendarScreenSteps calendarScreenSteps = new CalendarScreenSteps();
 
-    // Проверка отображения экрана Фильтрация новостей
+    @Step("Проверка отображения экрана Фильтрация новостей")
     public void checkFilterNewsScreenIsDisplayed() {
         onView(isRoot()).perform(waitUntilShown(R.id.filter_news_title_text_view, 3000));
         filterNewsScreenElements.getFilterTitle().check(matches(isDisplayed()));
     }
 
-    // Выбор категории из выпадающего списка
+    @Step("Выбор категории из выпадающего списка")
     public void chooseCategory(@NonNull AppActivity activity, String category) {
         filterNewsScreenElements.getCategory().perform(click());
         filterNewsScreenElements.getCategory().perform(closeSoftKeyboard());
         onView(withText(category)).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).perform(click());
     }
 
-    // Заполнение первой даты значением сегодняшнего дня
+    @Step("Заполнение первой даты значением сегодняшнего дня")
     public void fillTheStartDateToday() {
         filterNewsScreenElements.getDateStart().perform(click());
         calendarScreenSteps.clickOnOkButton();
     }
 
-    // Заполнение второй даты значением сегодняшнего дня
+    @Step("Заполнение второй даты значением сегодняшнего дня")
     public void fillTheEndDateToday() {
         filterNewsScreenElements.getDateEnd().perform(click());
         calendarScreenSteps.clickOnOkButton();
     }
 
-    // Нажатие на кнопку Фильтровать
+    @Step("Нажатие на кнопку Фильтровать")
     public void clickOnFilterButton() {
         filterNewsScreenElements.getFilterButton().perform(click());
     }
