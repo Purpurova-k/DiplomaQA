@@ -6,19 +6,19 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.validLoginAndPassword;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
 import androidx.test.espresso.PerformException;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
 
+import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import ru.iteco.fhmandroid.ui.steps.AuthorizationScreenSteps;
 import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(AllureAndroidJUnit4.class)
 public abstract class BaseAndroidTest {
 
     @Rule

@@ -10,7 +10,6 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.validLoginAndPassword;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 
 import androidx.test.espresso.NoMatchingViewException;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
@@ -19,6 +18,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
@@ -27,7 +27,7 @@ import ru.iteco.fhmandroid.ui.steps.MainScreenSteps;
 
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(AllureAndroidJUnit4.class)
 public class AuthorizationScreenTest {
 
     @Rule
