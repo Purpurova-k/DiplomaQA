@@ -370,7 +370,7 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
         controlPanelScreenSteps.checkControlPanelScreenIsDisplayed();
 
         String category = randomNewsCategory();
-        createNewsPublicationToday(category);
+        createNewsPublicationTomorrow(category);
 
         controlPanelScreenSteps.clickButtonEditNews(0);
         editNewsScreenSteps.clickOnSwitcher();
@@ -789,7 +789,7 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
 
     @Test
     @DisplayName("Кейс 5.5.3 \"Редактирование неактивной новости в разделе Панель управление новостей с переключением новости на активную\"")
-    public void shouldEditActiveNewsToInactive() {
+    public void shouldEditInactiveNewsToActive() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
         newsScreenSteps.goToControlPanelScreen();
@@ -818,7 +818,7 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
 
     @Test
     @DisplayName("Кейс 5.5.4 \"Редактирование активной новости в разделе Панель управление новостей с переключением новости на неактивную\"")
-    public void shouldEditInactiveNewsToActive() {
+    public void shouldEditActiveNewsToInactive() {
         mainScreenSteps.clickOnAllNewsButton();
         newsScreenSteps.checkNewsScreenIsDisplayed();
         newsScreenSteps.goToControlPanelScreen();

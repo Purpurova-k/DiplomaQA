@@ -97,7 +97,7 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
     }
 
     @Test
-    @DisplayName("Кейс 4.1.2 \"Добавление комментария к заявке в статусе \"В работе\" с последующей отменой\"")
+    @DisplayName("Кейс 4.1.3 \"Добавление комментария к заявке в статусе \"В работе\" с пустым полем Комментарий\"")
     public void shouldWarnWhenCommentFieldIsEmpty() {
         mainScreenSteps.clickOnAllClaimsButton();
         claimsScreenSteps.checkClaimsScreenIsDisplayed();
