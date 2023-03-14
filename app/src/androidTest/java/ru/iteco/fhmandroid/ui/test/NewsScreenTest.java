@@ -11,6 +11,7 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.Swipe.swipeToTopNewsScreen;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.Text.textWithCyrillicSymbols;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.createNewsPublicationAYearAgo;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.createNewsPublicationInOneWeek;
+import static ru.iteco.fhmandroid.ui.data.DataHelper.createNewsPublicationInOneYear;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.createNewsPublicationToday;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.createNewsPublicationTomorrow;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.createNewsPublicationYesterday;
@@ -39,7 +40,7 @@ import ru.iteco.fhmandroid.ui.steps.WatchScreenSteps;
 
 
 @LargeTest
-public class NewsScreenAPI29Test extends BaseAndroidTest {
+public class NewsScreenTest extends BaseAndroidTest {
 
     MainScreenSteps mainScreenSteps = new MainScreenSteps();
     NewsScreenSteps newsScreenSteps = new NewsScreenSteps();
@@ -131,6 +132,62 @@ public class NewsScreenAPI29Test extends BaseAndroidTest {
 
         controlPanelScreenSteps.clickOnNewsItem(0);
         controlPanelScreenSteps.checkTextOfNewsDescriptionIsVisible(0);
+    }
+
+    @Test
+    @DisplayName("Кейс 5.2.2 \"Удаление новости в разделе Панель управления новостей\"")
+    public void shouldDeleteNewsOnControlPanelScreen() {
+        mainScreenSteps.clickOnAllNewsButton();
+        newsScreenSteps.checkNewsScreenIsDisplayed();
+        newsScreenSteps.goToControlPanelScreen();
+        controlPanelScreenSteps.checkControlPanelScreenIsDisplayed();
+        String category = randomNewsCategory();
+        createNewsPublicationInOneYear(category);
+        controlPanelScreenSteps.clickOnNewsItem(0);
+
+        String nameBefore = controlPanelScreenSteps.nameText(0);
+        String publicationDateBefore = controlPanelScreenSteps.publicationDateText(0);
+        String creationDateBefore = controlPanelScreenSteps.creationDateText(0);
+        String descriptionBefore = controlPanelScreenSteps.descriptionText(0);
+
+        controlPanelScreenSteps.clickButtonDeleteNews(nameBefore);
+        controlPanelScreenSteps.clickButtonOkDeleteNews();
+
+        controlPanelScreenSteps.clickOnNewsItem(0);
+
+        String nameAfter = controlPanelScreenSteps.nameText(0);
+        String publicationDateAfter = controlPanelScreenSteps.publicationDateText(0);
+        String creationDateAfter = controlPanelScreenSteps.creationDateText(0);
+        String descriptionAfter = controlPanelScreenSteps.descriptionText(0);
+
+        controlPanelScreenSteps.compareDataOfFirstNewsBeforeAndAfterDeleting(nameBefore, nameAfter, publicationDateBefore,
+                publicationDateAfter, creationDateBefore, creationDateAfter, descriptionBefore, descriptionAfter);
+    }
+
+    @Test
+    @DisplayName("Кейс 5.2.3 \"Удаление новости в разделе Панель управления новостей с последующей отменой\"")
+    public void shouldNotDeleteNewsAfterCancelingDeletingOnControlPanelScreen() {
+        mainScreenSteps.clickOnAllNewsButton();
+        newsScreenSteps.checkNewsScreenIsDisplayed();
+        newsScreenSteps.goToControlPanelScreen();
+        controlPanelScreenSteps.checkControlPanelScreenIsDisplayed();
+        controlPanelScreenSteps.clickOnNewsItem(0);
+
+        String nameBefore = controlPanelScreenSteps.nameText(0);
+        String publicationDateBefore = controlPanelScreenSteps.publicationDateText(0);
+        String creationDateBefore = controlPanelScreenSteps.creationDateText(0);
+        String descriptionBefore = controlPanelScreenSteps.descriptionText(0);
+
+        controlPanelScreenSteps.clickButtonDeleteNews(nameBefore);
+        controlPanelScreenSteps.clickButtonCancelDeleteNews();
+
+        String nameAfter = controlPanelScreenSteps.nameText(0);
+        String publicationDateAfter = controlPanelScreenSteps.publicationDateText(0);
+        String creationDateAfter = controlPanelScreenSteps.creationDateText(0);
+        String descriptionAfter = controlPanelScreenSteps.descriptionText(0);
+
+        controlPanelScreenSteps.compareDataOfFirstNewsBeforeAndAfterCancellingDeleting(nameBefore, nameAfter, publicationDateBefore,
+                publicationDateAfter, creationDateBefore, creationDateAfter, descriptionBefore, descriptionAfter);
     }
 
     @Test

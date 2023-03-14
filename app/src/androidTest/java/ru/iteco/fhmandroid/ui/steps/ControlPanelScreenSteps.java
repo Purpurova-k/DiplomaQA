@@ -18,6 +18,8 @@ import static org.junit.Assert.assertNotEquals;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.waitUntilShown;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.withIndex;
 
+import android.os.SystemClock;
+
 import io.qameta.allure.kotlin.Step;
 import ru.iteco.fhmandroid.ui.data.DataHelper;
 import ru.iteco.fhmandroid.ui.elements.ControlPanelScreenElements;
@@ -64,6 +66,7 @@ public class ControlPanelScreenSteps {
 
     @Step("Нажатие на кнопку удалить рядом с новостью")
     public void clickButtonDeleteNews(String nameOfNews) {
+        SystemClock.sleep(2000);
         onView(isRoot()).perform(waitUntilShown(R.id.delete_news_item_image_view, 3000));
         onView(allOf(withId(R.id.delete_news_item_image_view), hasSibling(withText(nameOfNews)))).perform(click());
     }
