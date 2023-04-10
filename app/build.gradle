@@ -7,24 +7,23 @@ plugins {
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.firebase.crashlytics'
-
 }
 
 repositories {
-    maven { url 'https://jitpack.io' }
+    mavenCentral()
 }
 
 android {
     compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
-    defaultConfig {
+        defaultConfig {
         applicationId "ru.iteco.fmhandroid"
         minSdkVersion 26
         targetSdkVersion 32
         versionCode 14
         versionName "1.0.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     compileOptions {
@@ -105,5 +104,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.0'
+    androidTestImplementation 'io.qameta.allure:allure-kotlin-model:2.4.0'
+    androidTestImplementation 'io.qameta.allure:allure-kotlin-commons:2.4.0'
+    androidTestImplementation 'io.qameta.allure:allure-kotlin-junit4:2.4.0'
     androidTestImplementation 'io.qameta.allure:allure-kotlin-android:2.4.0'
 }
