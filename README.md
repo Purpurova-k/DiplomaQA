@@ -28,3 +28,7 @@
 * [Git](https://git-scm.com/book/ru/v2/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5-%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-Git).
 
 ## Запуск автотестов
+1. Склонировать репозиторий на свой компьютер - git clone https://github.com/Purpurova-k/DiplomaQA
+2. Открыть склонированный проект в Android Studio
+3. Установить апк приложения на устройстве или эмуляторе (app/build/outputs/apk/debug/app-debug.apk)
+4. Запустить тесты командой в терминале ./gradlew connectedAndroidTest
