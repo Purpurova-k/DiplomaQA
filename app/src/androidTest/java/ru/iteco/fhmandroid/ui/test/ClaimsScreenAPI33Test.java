@@ -1,4 +1,6 @@
 // Эти тесты необходимо выполнять на устройстве с Android 13 (API 33)
+// After upgrading to Espresso 3.5.1 view assertion (onView(...).check(matches(...))) for view into scrollView crashes on API 28-30
+// https://github.com/android/android-test/issues/1642
 
 package ru.iteco.fhmandroid.ui.test;
 

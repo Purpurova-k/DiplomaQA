@@ -16,7 +16,6 @@ import static ru.iteco.fhmandroid.ui.data.DataHelper.snackCannotEditStatusOfClai
 import static ru.iteco.fhmandroid.ui.data.DataHelper.snackEmptyField;
 import static ru.iteco.fhmandroid.ui.data.DataHelper.validationInvalidTime;
 
-import androidx.test.espresso.NoMatchingRootException;
 import androidx.test.filters.LargeTest;
 
 import org.junit.Test;
@@ -588,7 +587,7 @@ public class ClaimsScreenAPI29Test extends BaseAndroidTest {
 
     @Test
     @DisplayName("Кейс 4.8.8 \"Создание новой заявки с вводом значения в поле Исполнитель не из выпадающего списка\"")
-    public void shouldNotCreateClaimWithExecutorNotFromDropdown() throws NoMatchingRootException {
+    public void shouldNotCreateClaimWithExecutorNotFromDropdown() {
         mainScreenSteps.clickOnCreateClaimButton();
         createClaimScreenSteps.checkCreateClaimScreenIsDisplayed();
 

@@ -660,8 +660,13 @@ public class DataHelper {
 
         public static String currentTimePlusOneHour() {
             Calendar calendar = Calendar.getInstance();
+            int hourPlusOneHour;
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int hourPlusOneHour = hour + 1;
+            if (hour == 23) {
+                hourPlusOneHour = 00;
+            } else {
+                hourPlusOneHour = hour + 1;
+            }
 
             return String.valueOf(hourPlusOneHour);
         }
